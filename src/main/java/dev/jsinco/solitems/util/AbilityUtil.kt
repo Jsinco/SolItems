@@ -1,0 +1,119 @@
+package dev.jsinco.solitems.util
+
+import dev.jsinco.solitems.SolItems
+import dev.jsinco.solitems.items.Cuboid
+import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.block.Block
+import org.bukkit.block.BlockFace
+import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.metadata.FixedMetadataValue
+import org.bukkit.util.Vector
+import java.util.*
+
+object AbilityUtil {
+
+    val plugin: SolItems = SolItems.getPlugin()
+    private val blockTypeBlacklist = listOf( // Move to YAML file
+        Material.CHEST,
+        Material.SHULKER_BOX,
+        Material.BARREL,
+        Material.TRAPPED_CHEST,
+        Material.FURNACE,
+        Material.BLAST_FURNACE,
+        Material.SMOKER,
+        Material.HOPPER,
+        Material.BREWING_STAND,
+        Material.DROPPER,
+        Material.DISPENSER,
+        Material.BEDROCK,
+        Material.END_PORTAL_FRAME,
+        Material.SPAWNER,
+        Material.COMMAND_BLOCK,
+        Material.BARRIER,
+        Material.STRUCTURE_BLOCK,
+        Material.JIGSAW,
+        Material.END_GATEWAY,
+        Material.BUDDING_AMETHYST,
+        Material.FARMLAND,
+        Material.DIRT_PATH,
+        Material.END_PORTAL,
+        Material.END_GATEWAY,
+        Material.LAVA,
+        Material.WATER,
+        Material.AIR,
+        Material.CAVE_AIR,
+        Material.VOID_AIR
+    )
+
+
+    fun noDamagePermission(attacker: Player, damagee: Entity): Boolean {
+        val event = EntityDamageByEntityEvent(attacker, damagee, EntityDamageEvent.DamageCause.ENTITY_ATTACK, 1.0)
+        Bukkit.getPluginManager().callEvent(event)
+        return event.isCancelled
+    }
+
+    fun getDirectionBetweenLocations(start: Location, end: Location): Vector {
+        val from = start.toVector()
+        val to = end.toVector()
+        return to.subtract(from)
+    }
+
+    fun breakRelativeBlock(block: Block, player: Player, particle: Particle?, type: String, limiterInitial: Int) {
+        var limiter = limiterInitial
+        if (player.hasMetadata("BlockAbility")) return
+        val faces =
+            arrayOf(BlockFace.DOWN, BlockFace.UP, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST)
+        //Loop through all block faces (All 6 sides around the block)
+        if (limiter > 8) return
+        // edit this
+        for (face in faces) {
+            val b = block.getRelative(face!!)
+            if (b.type.toString().lowercase(Locale.getDefault()).contains(type)) {
+                if (particle != null) {
+                    b.world.spawnParticle(Particle.BLOCK_CRACK, b.location, 5, 0.5, 0.5, 0.5, 0.1, b.blockData)
+                    b.world.spawnParticle(particle, b.location, 2, 0.5, 0.5, 0.5, 0.1)
+                }
+                player.setMetadata("BlockAbility", FixedMetadataValue(plugin, true))
+                player.breakBlock(b)
+                player.removeMetadata("BlockAbility", plugin)
+                block.breakNaturally(player.inventory.itemInMainHand)
+                if (type == "leaves") {
+                    limiter++
+                }
+                val finalLimiter = limiter
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
+                    { breakRelativeBlock(b, player, particle, type, finalLimiter) }, 1L
+                )
+            }
+        }
+    }
+
+    fun breakThreeByThree(block: Block, player: Player, restrict: List<Material?>?) {
+        if (player.hasMetadata("BlockAbility")) return
+        val cube = Cuboid(block.location.add(-1.0, -1.0, -1.0), block.location.add(1.0, 1.0, 1.0))
+        player.setMetadata("BlockAbility", FixedMetadataValue(plugin, true))
+        if (restrict != null) {
+            for (i in 0 until cube.blockList().size) {
+                val b: Block = cube.blockList()[i]
+                if (blockTypeBlacklist.contains(b.type) || !restrict.contains(b.type)) continue
+                b.world.spawnParticle(Particle.BLOCK_DUST, b.location.add(0.5, 0.5, 0.5), 10, 0.5, 0.5, 0.5, 0.1, b.blockData)
+                player.breakBlock(b)
+            }
+        } else {
+            for (i in 0 until cube.blockList().size) {
+                val b: Block = cube.blockList()[i]
+                if (blockTypeBlacklist.contains(b.type)) continue
+                b.world.spawnParticle(
+                    Particle.BLOCK_DUST, b.location.add(0.5, 0.5, 0.5), 10, 0.5, 0.5, 0.5, 0.1, b.blockData)
+                player.breakBlock(b)
+            }
+        }
+        player.removeMetadata("BlockAbility", plugin)
+    }
+}

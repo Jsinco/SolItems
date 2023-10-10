@@ -1,0 +1,233 @@
+package dev.jsinco.solitems.events
+
+import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent
+import dev.jsinco.solitems.SolItems
+import dev.jsinco.solitems.items.Ability
+import dev.jsinco.solitems.manager.ItemManager
+import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
+import org.bukkit.NamespacedKey
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDeathEvent
+import org.bukkit.event.entity.ProjectileHitEvent
+import org.bukkit.event.entity.ProjectileLaunchEvent
+import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerFishEvent
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerSwapHandItemsEvent
+import org.bukkit.persistence.PersistentDataContainer
+import org.bukkit.persistence.PersistentDataType
+
+class Listeners(val plugin: SolItems) : Listener {
+
+
+    @EventHandler(ignoreCancelled = true)
+    fun onCrossbowLoad(event: EntityLoadCrossbowEvent) {
+        val player = event.entity as? Player ?: return
+        val item = player.inventory.itemInMainHand
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.CROSSBOW_LOAD, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true) // TODO: Offhand support
+    fun onProjectileLaunch(event: ProjectileLaunchEvent) {
+        val player = event.entity.shooter as? Player ?: return
+
+        val item = player.inventory.itemInMainHand
+        val offHandItem = player.inventory.itemInOffHand
+
+        if (!item.hasItemMeta() && !offHandItem.hasItemMeta()) return
+
+        val data: PersistentDataContainer? = item.itemMeta?.persistentDataContainer
+        val offHandData: PersistentDataContainer? = offHandItem.itemMeta?.persistentDataContainer
+
+
+        for (customItem in ItemManager.customItems) {
+            if (data?.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT) == true) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.PROJECTILE_LAUNCH, player, event)
+                return
+            } else if (offHandData?.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT) == true) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.PROJECTILE_LAUNCH, player, event)
+                return
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onProjectileHit(event: ProjectileHitEvent) {
+        val projectile = event.entity
+        val player = event.entity.shooter as? Player
+
+        val data = projectile.persistentDataContainer
+        for (customItemsClass in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItemsClass.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItemsClass.value
+                customItemClass.executeAbilities(Ability.PROJECTILE_LAND, player!!, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onPlayerInteract(event: PlayerInteractEvent) {
+        val player = event.player
+        val item = player.inventory.itemInMainHand
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+        val ability: Ability = if (event.action.isLeftClick) Ability.LEFT_CLICK else Ability.RIGHT_CLICK
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(ability, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onPlayerSwapHandItems(event: PlayerSwapHandItemsEvent) {
+        val player = event.player
+
+        val item = event.offHandItem ?: return
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.SWAP_HAND, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onEntityDeath(event: EntityDeathEvent) {
+        val player: Player = event.entity.killer ?: return
+
+        val item = player.inventory.itemInMainHand
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.ENTITY_DEATH, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onEntityDamage(event: EntityDamageByEntityEvent) {
+        val player = event.damager as? Player ?: return
+        val item = player.inventory.itemInMainHand
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.ENTITY_DAMAGE, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onPlayerDropItem(event: PlayerDropItemEvent) {
+        val player = event.player
+
+        val item = event.itemDrop.itemStack
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.DROP_ITEM, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onPlayerBreakBlock(event: BlockBreakEvent) {
+        val player = event.player
+
+        val item = player.inventory.itemInMainHand
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.BREAK_BLOCK, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true) // TODO: Offhand support
+    fun onPlayerFish(event: PlayerFishEvent) {
+        val player = event.player
+
+        val item = player.inventory.itemInMainHand
+        val offHandItem = player.inventory.itemInOffHand
+
+        if (!item.hasItemMeta() && !offHandItem.hasItemMeta()) return
+
+        val data: PersistentDataContainer? = item.itemMeta?.persistentDataContainer
+        val offHandData: PersistentDataContainer? = offHandItem.itemMeta?.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data?.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT) == true) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.FISH, player, event)
+                break
+            } else if (offHandData?.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT) == true) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.FISH, player, event)
+                break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true) // The only item that uses this is the Ruby Pinions, only setting up to grab elytra for now
+    fun onPlayerElytraBoost(event: PlayerElytraBoostEvent) {
+        val player = event.player
+
+        val elytra = player.inventory.chestplate!! // You can't call this event while having a null chestplate??
+        if (!elytra.hasItemMeta()) return
+
+        val data: PersistentDataContainer = elytra.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.ELYTRA_BOOST, player, event)
+                break
+            }
+        }
+    }
+}
