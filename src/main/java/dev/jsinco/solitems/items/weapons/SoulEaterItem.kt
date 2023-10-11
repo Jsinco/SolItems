@@ -13,6 +13,7 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.potion.PotionEffect
@@ -39,12 +40,14 @@ class SoulEaterItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
+        val swapHands: PlayerSwapHandItemsEvent? = event as? PlayerSwapHandItemsEvent
         val entityDeathEvent: EntityDeathEvent? = event as? EntityDeathEvent
         val dropItemEvent: PlayerDropItemEvent? = event as? PlayerDropItemEvent
 
         when (type) {
             Ability.SWAP_HAND -> {
                 swapWeapon(player, player.inventory.itemInMainHand)
+                swapHands!!.isCancelled = true
             }
             Ability.ENTITY_DEATH -> {
                 soulOrb(entityDeathEvent!!.entity)

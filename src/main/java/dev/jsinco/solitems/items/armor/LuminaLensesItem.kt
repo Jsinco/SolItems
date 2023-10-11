@@ -100,7 +100,7 @@ class LuminaLensesItem : CustomItem {
         if (!meta.persistentDataContainer.has(NamespacedKey(plugin, "LuminaLenses"), PersistentDataType.SHORT)) return
         val currentCharge: Short = meta.persistentDataContainer.get(NamespacedKey(plugin, "LuminaLenses"), PersistentDataType.SHORT)!!
         if (currentCharge > 0) {
-            Bukkit.broadcastMessage((currentCharge - 1).toShort().toString())
+            Bukkit.broadcastMessage((currentCharge - 1).toShort().toString() + currentCharge + currentCharge.toShort())
             meta.persistentDataContainer.set(NamespacedKey(plugin, "LuminaLenses"), PersistentDataType.SHORT, (currentCharge - 1).toShort())
             val lore = meta.lore!!
             for (i in lore.indices) {
