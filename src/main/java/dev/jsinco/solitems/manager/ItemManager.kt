@@ -1,6 +1,9 @@
 package dev.jsinco.solitems.manager
 
 import dev.jsinco.solitems.SolItems
+import dev.jsinco.solitems.items.armor.EtherealWingsItem
+import dev.jsinco.solitems.items.armor.FlameguardGreavesItem
+import dev.jsinco.solitems.items.armor.LuminaLensesItem
 import dev.jsinco.solitems.items.misc.*
 import dev.jsinco.solitems.items.tools.*
 import dev.jsinco.solitems.items.weapons.*
@@ -41,6 +44,11 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(SatchelItem())
         addCustomItemClass(SollureItem())
         addCustomItemClass(SweetMelonItem())
+        // TODO: Add OmniTool
+        // Armor
+        addCustomItemClass(EtherealWingsItem())
+        addCustomItemClass(FlameguardGreavesItem())
+        addCustomItemClass(LuminaLensesItem())
     }
 
 

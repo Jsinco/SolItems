@@ -4,11 +4,14 @@ import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent
 import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.Ability
 import dev.jsinco.solitems.manager.ItemManager
+import dev.jsinco.solitems.util.Util
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
+import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
@@ -18,6 +21,7 @@ import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
+import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 
@@ -82,20 +86,19 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
-        val item = player.inventory.itemInMainHand
-        if (!item.hasItemMeta()) return
-
-        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+        val dataContainers: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
         val ability: Ability = if (event.action.isLeftClick) Ability.LEFT_CLICK else Ability.RIGHT_CLICK
 
         for (customItem in ItemManager.customItems) {
-            if (data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
-                val customItemClass = customItem.value
-                customItemClass.executeAbilities(ability, player, event)
-                break
+            for (dataContainer in dataContainers) {
+                if (dataContainer.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                    val customItemClass = customItem.value
+                    customItemClass.executeAbilities(ability, player, event)
+                    break
+                }
             }
         }
     }
@@ -227,6 +230,22 @@ class Listeners(val plugin: SolItems) : Listener {
                 val customItemClass = customItem.value
                 customItemClass.executeAbilities(Ability.ELYTRA_BOOST, player, event)
                 break
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onPlayerCrouch(event: PlayerToggleSneakEvent) {
+        val player = event.player
+        val data: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
+
+        for (customItem in ItemManager.customItems) {
+            for (itemData in data) {
+                if (itemData.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                    val customItemClass = customItem.value
+                    customItemClass.executeAbilities(Ability.PLAYER_CROUCH, player, event)
+                    break
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package dev.jsinco.solitems;
 
 import dev.jsinco.solitems.commands.CommandManager;
+import dev.jsinco.solitems.events.Delay;
 import dev.jsinco.solitems.events.Listeners;
 import dev.jsinco.solitems.events.PassiveListeners;
 import dev.jsinco.solitems.hooks.GlowColorPlaceholder;
@@ -22,7 +23,7 @@ public final class SolItems extends JavaPlugin {
 
 
 
-        passiveListeners.startCustomItemsRunnable();
+        passiveListeners.startRunnable("main", Delay.FAST);
 
         new GlowManager(); // Convert to object
         getServer().getPluginManager().registerEvents(new Listeners(this), this);

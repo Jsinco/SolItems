@@ -14,6 +14,7 @@ public enum Ability {
     SWAP_HAND, // Mapped
     DROP_ITEM, // Mapped
     ELYTRA_BOOST, // Mapped
-    ARMOR_CHANGE,
-    RUNNABLE // Mapped
+    ARMOR_SWAP,
+    RUNNABLE, // Mapped
+    PLAYER_CROUCH // Mapped
 }

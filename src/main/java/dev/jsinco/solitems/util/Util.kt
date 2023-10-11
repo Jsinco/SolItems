@@ -1,6 +1,8 @@
 package dev.jsinco.solitems.util
 
 import org.bukkit.ChatColor
+import org.bukkit.entity.Player
+import org.bukkit.persistence.PersistentDataContainer
 
 
 object Util {
@@ -62,5 +64,16 @@ object Util {
             ChatColor.YELLOW -> "§e"
             else -> "§f"
         }
+    }
+
+    fun getAllEquipmentNBT(player: Player): List<PersistentDataContainer> {
+        val nbtList: MutableList<PersistentDataContainer> = mutableListOf()
+        player.inventory.helmet?.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
+        player.inventory.chestplate?.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
+        player.inventory.leggings?.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
+        player.inventory.boots?.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
+        player.inventory.itemInMainHand.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
+        player.inventory.itemInOffHand.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
+        return nbtList
     }
 }
