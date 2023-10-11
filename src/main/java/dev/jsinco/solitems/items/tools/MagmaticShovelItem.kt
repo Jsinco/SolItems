@@ -36,7 +36,7 @@ class MagmaticShovelItem : CustomItem {
         return true
     }
 
-    fun heatingUp(blockBroken: Block, drops: Collection<ItemStack>): Boolean {
+    private fun heatingUp(blockBroken: Block, drops: Collection<ItemStack>): Boolean {
         if (blockBroken.type != Material.SAND || blockBroken.type != Material.RED_SAND) return false
         drops.forEach(Consumer { drop: ItemStack ->
             if (drop.type == Material.SAND || drop.type == Material.RED_SAND) drop.setType(

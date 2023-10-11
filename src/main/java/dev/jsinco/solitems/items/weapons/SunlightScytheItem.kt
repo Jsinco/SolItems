@@ -59,10 +59,7 @@ class SunlightScytheItem : CustomItem {
         val loc = if (p.getTargetBlockExact(10) != null) p.getTargetBlockExact(10)!!.location else p.location.add(
             p.location.getDirection().multiply(10)
         )
-        if (entity != null) dazzlingSolstice(
-            p,
-            entity.location
-        ) else dazzlingSolstice(p, loc)
+        if (entity != null) dazzlingSolstice(p, entity.location) else dazzlingSolstice(p, loc)
 
         // cooldown
         cooldown.add(p)
@@ -85,7 +82,7 @@ class SunlightScytheItem : CustomItem {
     private fun dazzlingSolstice(p: Player, loc: Location) {
         val entities: MutableList<LivingEntity> = ArrayList()
         loc.getWorld().getNearbyEntities(loc, 2.0, 2.5, 2.0).forEach(Consumer { e: Entity ->
-            if (e is LivingEntity && AbilityUtil.noDamagePermission(p, e) && e != p) {
+            if (e is LivingEntity && !AbilityUtil.noDamagePermission(p, e) && e != p) {
                 entities.add(e)
             }
         })
@@ -110,16 +107,13 @@ class SunlightScytheItem : CustomItem {
         for (i in 0..5) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
                 loc.getWorld().getNearbyEntities(loc, 2.0, 2.5, 2.0)
-                    .forEach(Consumer<Entity> { e: Entity ->
+                    .forEach(Consumer { e: Entity ->
                         if (e is LivingEntity && AbilityUtil.noDamagePermission(p, e) && e != p) {
-                            entities.add(e as LivingEntity)
+                            entities.add(e)
                         }
                     })
                 entities.forEach(Consumer { livingEntity: LivingEntity ->
-                    livingEntity.damage(
-                        14.0,
-                        p
-                    )
+                    livingEntity.damage(14.0, p)
                 })
                 if (i == 5) Bukkit.getScheduler().cancelTask(slashes)
             }, (7 * (i + 1)).toLong())

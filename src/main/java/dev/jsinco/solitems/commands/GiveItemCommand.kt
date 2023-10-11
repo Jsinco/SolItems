@@ -14,7 +14,11 @@ class GiveItemCommand : SubCommand {
     init {
         for (customItem in customItems) {
             val item: ItemStack = customItem.value.createItem().second
-            customItemsByName[ChatColor.stripColor(item.itemMeta.displayName)!!.replace(" ", "_")] = item
+            customItemsByName[
+                ChatColor.stripColor(item.itemMeta.displayName)!!
+                .replace(" ", "_")
+                .lowercase()
+            ] = item
         }
     }
 
@@ -38,7 +42,9 @@ class GiveItemCommand : SubCommand {
     }
 
     override fun tabComplete(plugin: SolItems, sender: CommandSender, args: Array<out String>): List<String> {
-        return customItemsByName.keys.toMutableList()
+        val list: MutableList<String> = customItemsByName.keys.toMutableList()
+        list.add("all")
+        return list
     }
 
     override fun permission(): String {

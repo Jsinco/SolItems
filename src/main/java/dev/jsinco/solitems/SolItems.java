@@ -21,7 +21,8 @@ public final class SolItems extends JavaPlugin {
         ItemManager itemManager = new ItemManager(this);
         PassiveListeners passiveListeners = new PassiveListeners(this);
 
-
+        FileManager fileManager = new FileManager("blank.txt");
+        fileManager.generateFolder("saves");
 
         passiveListeners.startRunnable("main", Delay.FAST);
 

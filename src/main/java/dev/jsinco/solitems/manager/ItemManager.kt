@@ -1,9 +1,7 @@
 package dev.jsinco.solitems.manager
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.armor.EtherealWingsItem
-import dev.jsinco.solitems.items.armor.FlameguardGreavesItem
-import dev.jsinco.solitems.items.armor.LuminaLensesItem
+import dev.jsinco.solitems.items.armor.*
 import dev.jsinco.solitems.items.misc.*
 import dev.jsinco.solitems.items.tools.*
 import dev.jsinco.solitems.items.weapons.*
@@ -35,7 +33,9 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(MoonstoneMattockItem())
         addCustomItemClass(SapphireShardItem())
         addCustomItemClass(StarstoneDrillerItem())
-        // TODO: Stellaris set items, need to refactor pinata most likely
+        addCustomItemClass(StellarisMattockItem())
+        addCustomItemClass(StellarisSpadeItem())
+        addCustomItemClass(StellarisTomahawkItem())
         // Misc
         addCustomItemClass(ArcaneAnglerItem())
         addCustomItemClass(CozyCampFireItem())
@@ -49,6 +49,12 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(EtherealWingsItem())
         addCustomItemClass(FlameguardGreavesItem())
         addCustomItemClass(LuminaLensesItem())
+        addCustomItemClass(MoonWalkersItem())
+        addCustomItemClass(NeptunesCrownItem())
+        addCustomItemClass(OpticCuirassItem())
+        addCustomItemClass(RibbonBootsItem())
+        addCustomItemClass(RubyPinionsItem())
+        addCustomItemClass(StarweaveAegisItem())
     }
 
 

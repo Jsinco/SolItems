@@ -13,7 +13,9 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
@@ -28,7 +30,7 @@ import org.bukkit.persistence.PersistentDataType
 class Listeners(val plugin: SolItems) : Listener {
 
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onCrossbowLoad(event: EntityLoadCrossbowEvent) {
         val player = event.entity as? Player ?: return
         val item = player.inventory.itemInMainHand
@@ -45,7 +47,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true) // TODO: Offhand support
+    @EventHandler // TODO: Offhand support
     fun onProjectileLaunch(event: ProjectileLaunchEvent) {
         val player = event.entity.shooter as? Player ?: return
 
@@ -71,7 +73,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onProjectileHit(event: ProjectileHitEvent) {
         val projectile = event.entity
         val player = event.entity.shooter as? Player
@@ -103,7 +105,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onPlayerSwapHandItems(event: PlayerSwapHandItemsEvent) {
         val player = event.player
 
@@ -121,7 +123,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onEntityDeath(event: EntityDeathEvent) {
         val player: Player = event.entity.killer ?: return
 
@@ -138,8 +140,8 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
-    fun onEntityDamage(event: EntityDamageByEntityEvent) {
+    @EventHandler
+    fun onEntityDamageByEntity(event: EntityDamageByEntityEvent) {
         val player = event.damager as? Player ?: return
         val item = player.inventory.itemInMainHand
         if (!item.hasItemMeta()) return
@@ -155,7 +157,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
         val player = event.player
 
@@ -173,7 +175,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onPlayerBreakBlock(event: BlockBreakEvent) {
         val player = event.player
 
@@ -191,7 +193,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true) // TODO: Offhand support
+    @EventHandler // TODO: Offhand support
     fun onPlayerFish(event: PlayerFishEvent) {
         val player = event.player
 
@@ -216,7 +218,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true) // The only item that uses this is the Ruby Pinions, only setting up to grab elytra for now
+    @EventHandler // The only item that uses this is the Ruby Pinions, only setting up to grab elytra for now
     fun onPlayerElytraBoost(event: PlayerElytraBoostEvent) {
         val player = event.player
 
@@ -234,7 +236,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     fun onPlayerCrouch(event: PlayerToggleSneakEvent) {
         val player = event.player
         val data: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
@@ -244,6 +246,37 @@ class Listeners(val plugin: SolItems) : Listener {
                 if (itemData.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
                     val customItemClass = customItem.value
                     customItemClass.executeAbilities(Ability.PLAYER_CROUCH, player, event)
+                    break
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    fun onPlayerPlaceBlock(event: BlockPlaceEvent) {
+        val player = event.player
+        val data: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
+
+        for (customItem in ItemManager.customItems) {
+            for (itemData in data) {
+                if (itemData.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                    val customItemClass = customItem.value
+                    customItemClass.executeAbilities(Ability.PLACE_BLOCK, player, event)
+                    break
+                }
+            }
+        }
+    }
+
+    fun onEntityDamage(event: EntityDamageEvent) {
+        val player = event.entity as? Player ?: return
+        val data: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
+
+        for (customItem in ItemManager.customItems) {
+            for (itemData in data) {
+                if (itemData.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) {
+                    val customItemClass = customItem.value
+                    customItemClass.executeAbilities(Ability.ENTITY_DAMAGE_BY_SELF, player, event)
                     break
                 }
             }

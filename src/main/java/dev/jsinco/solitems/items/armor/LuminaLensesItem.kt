@@ -47,7 +47,6 @@ class LuminaLensesItem : CustomItem {
             }
 
             Ability.RIGHT_CLICK -> {
-                Bukkit.broadcastMessage("right click")
                 batteryCharge(player.inventory.helmet!!, player.inventory.itemInMainHand, player)
             }
             else -> return false

@@ -1,11 +1,10 @@
 package dev.jsinco.solitems.util
 
+import dev.jsinco.solitems.FileManager
 import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.Cuboid
-import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.Particle
+import org.bukkit.*
+import org.bukkit.Particle.DustOptions
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 import org.bukkit.entity.Entity
@@ -64,6 +63,8 @@ object AbilityUtil {
         return to.subtract(from)
     }
 
+
+
     fun breakRelativeBlock(block: Block, player: Player, particle: Particle?, type: String, limiterInitial: Int) {
         var limiter = limiterInitial
         if (player.hasMetadata("BlockAbility")) return
@@ -73,7 +74,7 @@ object AbilityUtil {
         if (limiter > 8) return
         // edit this
         for (face in faces) {
-            val b = block.getRelative(face!!)
+            val b = block.getRelative(face)
             if (b.type.toString().lowercase(Locale.getDefault()).contains(type)) {
                 if (particle != null) {
                     b.world.spawnParticle(Particle.BLOCK_CRACK, b.location, 5, 0.5, 0.5, 0.5, 0.1, b.blockData)
@@ -94,6 +95,7 @@ object AbilityUtil {
         }
     }
 
+    // Usage: DarkMoonMattockItem, DarkMoonShovelItem
     fun breakThreeByThree(block: Block, player: Player, restrict: List<Material?>?) {
         if (player.hasMetadata("BlockAbility")) return
         val cube = Cuboid(block.location.add(-1.0, -1.0, -1.0), block.location.add(1.0, 1.0, 1.0))
@@ -115,5 +117,30 @@ object AbilityUtil {
             }
         }
         player.removeMetadata("BlockAbility", plugin)
+    }
+
+    // Stellaris' Set
+    fun pinataAbility(player: Player, block: Block) {
+        val pinataFile = FileManager("saves/pinata.yml").getFileYaml()
+        val items = pinataFile.getConfigurationSection("items")!!.getKeys(false)
+        val rareItems = pinataFile.getConfigurationSection("rare-items")!!.getKeys(false)
+
+        val item = if (Random().nextInt(20) <= 5) {
+            val item = rareItems.random()
+            val itemStack = pinataFile.getItemStack("rare-items.$item")
+            itemStack
+        } else {
+            val item = items.random()
+            val itemStack = pinataFile.getItemStack("items.$item")
+            itemStack
+        }
+
+        if (item != null) {
+            block.world.dropItemNaturally(block.location, item)
+        }
+        block.world.spawnParticle(Particle.REDSTONE, block.location, 50, 0.5, 0.5, 0.5, 0.1, DustOptions(Color.fromRGB(106, 219, 255), 2f))
+        block.world.spawnParticle(Particle.REDSTONE, block.location, 50, 0.5, 0.5, 0.5, 0.1, DustOptions(Color.fromRGB(255, 121, 209), 2f))
+        block.world.playSound(block.location, Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1f, 1f)
+
     }
 }
