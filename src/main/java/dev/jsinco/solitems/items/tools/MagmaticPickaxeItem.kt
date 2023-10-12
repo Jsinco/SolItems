@@ -1,7 +1,7 @@
 package dev.jsinco.solitems.items.tools
 
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import org.bukkit.Material
 import org.bukkit.block.Block
@@ -10,7 +10,6 @@ import org.bukkit.entity.ExperienceOrb
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
-import java.util.List
 import java.util.function.Consumer
 
 class MagmaticPickaxeItem : CustomItem {

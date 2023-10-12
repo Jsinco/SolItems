@@ -2,8 +2,8 @@ package dev.jsinco.solitems.items.armor
 
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import org.bukkit.*
 import org.bukkit.Particle.DustOptions

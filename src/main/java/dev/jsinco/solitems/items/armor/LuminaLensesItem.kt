@@ -1,8 +1,8 @@
 package dev.jsinco.solitems.items.armor
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.Util
 import net.md_5.bungee.api.ChatMessageType

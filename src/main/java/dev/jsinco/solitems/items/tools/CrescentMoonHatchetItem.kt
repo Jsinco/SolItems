@@ -1,9 +1,9 @@
 package dev.jsinco.solitems.items.tools
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.items.Cuboid
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.util.Cuboid
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.AbilityUtil.breakRelativeBlock
 import org.bukkit.Bukkit
@@ -47,7 +47,10 @@ class CrescentMoonHatchetItem : CustomItem {
 
     private fun treeFeller(block: Block, player: Player) {
         if (!block.type.toString().contains("LOG") || player.hasMetadata("BlockTreeFeller")) return
-        val cuboid = Cuboid(block.location.add(-1.0, -5.0, -1.0), block.location.add(1.0, 25.0, 1.0))
+        val cuboid = Cuboid(
+            block.location.add(-1.0, -5.0, -1.0),
+            block.location.add(1.0, 25.0, 1.0)
+        )
         player.setMetadata("BlockTreeFeller", FixedMetadataValue(plugin, true))
         for (i in 0 until cuboid.blockList().size) {
             val b: Block = cuboid.blockList().get(i)

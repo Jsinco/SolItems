@@ -50,6 +50,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(FlameguardGreavesItem())
         addCustomItemClass(LuminaLensesItem())
         addCustomItemClass(MoonWalkersItem())
+        addCustomItemClass(NeonBootsItem())
         addCustomItemClass(NeptunesCrownItem())
         addCustomItemClass(OpticCuirassItem())
         addCustomItemClass(RibbonBootsItem())

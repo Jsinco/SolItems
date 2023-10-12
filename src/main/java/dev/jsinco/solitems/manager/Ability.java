@@ -1,4 +1,4 @@
-package dev.jsinco.solitems.items;
+package dev.jsinco.solitems.manager;
 
 public enum Ability {
     PROJECTILE_LAUNCH, // Mapped, Offhand supported

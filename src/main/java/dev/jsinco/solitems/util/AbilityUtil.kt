@@ -2,7 +2,6 @@ package dev.jsinco.solitems.util
 
 import dev.jsinco.solitems.FileManager
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Cuboid
 import org.bukkit.*
 import org.bukkit.Particle.DustOptions
 import org.bukkit.block.Block
@@ -98,7 +97,10 @@ object AbilityUtil {
     // Usage: DarkMoonMattockItem, DarkMoonShovelItem
     fun breakThreeByThree(block: Block, player: Player, restrict: List<Material?>?) {
         if (player.hasMetadata("BlockAbility")) return
-        val cube = Cuboid(block.location.add(-1.0, -1.0, -1.0), block.location.add(1.0, 1.0, 1.0))
+        val cube = Cuboid(
+            block.location.add(-1.0, -1.0, -1.0),
+            block.location.add(1.0, 1.0, 1.0)
+        )
         player.setMetadata("BlockAbility", FixedMetadataValue(plugin, true))
         if (restrict != null) {
             for (i in 0 until cube.blockList().size) {

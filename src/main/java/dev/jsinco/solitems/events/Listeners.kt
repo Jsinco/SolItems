@@ -2,16 +2,14 @@ package dev.jsinco.solitems.events
 
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
+import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.ItemManager
 import dev.jsinco.solitems.util.Util
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
-import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent

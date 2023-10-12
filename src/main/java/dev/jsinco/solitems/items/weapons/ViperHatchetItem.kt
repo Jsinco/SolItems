@@ -1,9 +1,9 @@
 package dev.jsinco.solitems.items.weapons
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
-import dev.jsinco.solitems.items.Ability
+import dev.jsinco.solitems.manager.Ability
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Particle

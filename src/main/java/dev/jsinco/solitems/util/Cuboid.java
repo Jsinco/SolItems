@@ -1,4 +1,4 @@
-package dev.jsinco.solitems.items;
+package dev.jsinco.solitems.util;
 
 import org.bukkit.Location;
 import org.bukkit.World;

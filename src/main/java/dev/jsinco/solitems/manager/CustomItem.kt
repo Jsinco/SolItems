@@ -1,7 +1,5 @@
 package dev.jsinco.solitems.manager
 
-import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 

@@ -1,15 +1,14 @@
 package dev.jsinco.solitems.items.armor
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
-import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.inventory.ItemStack
 
 class EtherealWingsItem : CustomItem {

@@ -1,4 +1,4 @@
-package dev.jsinco.solitems.manager
+package dev.jsinco.solitems.items
 
 import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.util.Util

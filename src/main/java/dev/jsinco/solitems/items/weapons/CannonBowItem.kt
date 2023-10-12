@@ -2,8 +2,8 @@ package dev.jsinco.solitems.items.weapons
 
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.GlowManager
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
 import org.bukkit.ChatColor
@@ -17,7 +17,6 @@ import org.bukkit.entity.Projectile
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
 import org.bukkit.inventory.ItemStack
-import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.persistence.PersistentDataType
 
 class CannonBowItem : CustomItem {

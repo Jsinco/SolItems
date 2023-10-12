@@ -1,9 +1,9 @@
 package dev.jsinco.solitems.items.tools
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.items.Cuboid
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.util.Cuboid
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.AbilityUtil
 import org.bukkit.Material
@@ -55,7 +55,10 @@ class MistralMattockItem : CustomItem {
 
 
     private fun seekOres(blockBroken: Block) {
-        val cuboid = Cuboid(blockBroken.location.add(7.0, 7.0, 7.0), blockBroken.location.add(-7.0, -7.0, -7.0))
+        val cuboid = Cuboid(
+            blockBroken.location.add(7.0, 7.0, 7.0),
+            blockBroken.location.add(-7.0, -7.0, -7.0)
+        )
         val blocks: MutableList<Block> = ArrayList()
         for (i in 0 until cuboid.blockList().size) {
             val block: Block = cuboid.blockList()[i]

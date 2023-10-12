@@ -1,7 +1,7 @@
 package dev.jsinco.solitems.items.misc
 
-import dev.jsinco.solitems.items.Ability
-import dev.jsinco.solitems.manager.CreateItem
+import dev.jsinco.solitems.manager.Ability
+import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.CustomItem
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
