@@ -1,6 +1,10 @@
 package dev.jsinco.solitems.manager
 
 import dev.jsinco.solitems.SolItems
+import dev.jsinco.solitems.candles.action.SaturationCandle
+import dev.jsinco.solitems.candles.effects.HeroOfTheVillageCandle
+import dev.jsinco.solitems.candles.effects.StrengthCandle
+import dev.jsinco.solitems.candles.effects.WitherCandle
 import dev.jsinco.solitems.items.armor.*
 import dev.jsinco.solitems.items.misc.*
 import dev.jsinco.solitems.items.tools.*
@@ -58,6 +62,14 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(StarweaveAegisItem())
     }
 
+    fun initializeCandleClasses() {
+        // Effects
+        addCustomItemClass(HeroOfTheVillageCandle())
+        addCustomItemClass(StrengthCandle())
+        addCustomItemClass(WitherCandle())
+        // Actions
+        addCustomItemClass(SaturationCandle())
+    }
 
     /**
      * Adds a custom item class to the customItems map by the item's main NBT key

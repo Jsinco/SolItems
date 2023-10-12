@@ -11,6 +11,7 @@ import org.bukkit.persistence.PersistentDataType
 
 class CreateCandle (
     private val name: String,
+    private val enchantName: String,
     private val lore: MutableList<String>,
     private val material: Material,
     private val persistentData: MutableList<String>,
@@ -30,6 +31,7 @@ class CreateCandle (
         val meta = candle.itemMeta!!
 
         meta.setDisplayName(Util.colorcode(name))
+        lore.map { "&f$it" }
         lore.add("")
         lore.addAll(tier)
         meta.lore = Util.colorcodeList(lore)
@@ -37,6 +39,7 @@ class CreateCandle (
         meta.addEnchant(Enchantment.DURABILITY, 10, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         meta.persistentDataContainer.set(NamespacedKey(plugin, "candle"), PersistentDataType.SHORT, 1)
+        meta.persistentDataContainer.set(NamespacedKey(plugin, "enchantname"), PersistentDataType.STRING, enchantName)
         for (data in persistentData) {
             meta.persistentDataContainer.set(NamespacedKey(plugin, data), PersistentDataType.SHORT, 1)
         }

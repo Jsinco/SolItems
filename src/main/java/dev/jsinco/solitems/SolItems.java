@@ -24,6 +24,7 @@ public final class SolItems extends JavaPlugin {
         FileManager fileManager = new FileManager("blank.txt");
         fileManager.generateFolder("saves");
 
+        itemManager.initializeCandleClasses();
         passiveListeners.startMainRunnable();
 
         GlowManager.initGlowTeams(); // Convert to object
