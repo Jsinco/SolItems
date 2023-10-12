@@ -20,6 +20,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.persistence.PersistentDataContainer
@@ -266,6 +267,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
+    @EventHandler
     fun onEntityDamage(event: EntityDamageEvent) {
         val player = event.entity as? Player ?: return
         val data: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
@@ -279,5 +281,9 @@ class Listeners(val plugin: SolItems) : Listener {
                 }
             }
         }
+    }
+
+    fun onPlayerMove(event: PlayerMoveEvent) {
+
     }
 }

@@ -24,7 +24,7 @@ class NeonBootsItem : CustomItem {
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
         when (type) {
             Ability.PLAYER_CROUCH ->{
-                player.velocity = player.location.direction.multiply(2)
+                //player.velocity = player.
             }
             else -> return false
         }
