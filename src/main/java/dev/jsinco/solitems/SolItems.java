@@ -7,6 +7,7 @@ import dev.jsinco.solitems.hooks.GlowColorPlaceholder;
 import dev.jsinco.solitems.hooks.PAPIManager;
 import dev.jsinco.solitems.manager.GlowManager;
 import dev.jsinco.solitems.manager.ItemManager;
+import dev.jsinco.solitems.util.AnvilPrevention;
 import dev.jsinco.solitems.util.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,15 +25,15 @@ public final class SolItems extends JavaPlugin {
 
         ItemManager itemManager = new ItemManager(this);
         PassiveListeners passiveListeners = new PassiveListeners(this);
-
         FileManager fileManager = new FileManager("blank.txt");
-        fileManager.generateFolder("saves");
 
+        fileManager.generateFolder("saves");
         itemManager.initializeCandleClasses();
         passiveListeners.startMainRunnable();
 
         GlowManager.initGlowTeams(); // Convert to object
         getServer().getPluginManager().registerEvents(new Listeners(this), this);
+        getServer().getPluginManager().registerEvents(new AnvilPrevention(this), this);
         getCommand("solitems").setExecutor(new CommandManager(this));
 
 

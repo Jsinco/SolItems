@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BestTool implements Listener {
+public class BestTool {
 
     public static final List<Material> AXE = new ArrayList<>();
     public static final List<Material> PICKAXE = new ArrayList<>();
