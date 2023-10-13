@@ -82,7 +82,15 @@ class RenameTagItem : CustomItem {
         }
 
         val meta = item.itemMeta!!
-        meta.setDisplayName(Util.colorcode(msg))
+        val name = try {
+            Util.colorcode(msg)
+        } catch (e: Exception) {
+            player.sendMessage("${Util.prefix} Invalid color code!")
+            player.inventory.addItem(renameTag)
+            return
+        }
+
+        meta.setDisplayName(name)
         item.itemMeta = meta
         player.sendMessage("${Util.prefix} Item renamed to ${Util.colorcode(msg)}")
     }

@@ -75,7 +75,10 @@ class LoreEditTagItem : CustomItem {
         } else if (msg == "done") {
             completeLoreEditing(player)
             return
+        } else if (msg == "~") {
+            msg.replace("~", "").trim()
         }
+
 
         if (lores.containsKey(player.uniqueId)) {
             lores[player.uniqueId]!!.add(msg)
@@ -107,10 +110,17 @@ class LoreEditTagItem : CustomItem {
             }
         }
 
+        val lore = try {
+            Util.colorcodeList(lores[player.uniqueId]!!)
+        } catch (e: Exception) {
+            cancelLoreEditing(player)
+            player.sendMessage(Util.colorcode("${Util.prefix} Something went wrong"))
+            return
+        }
         if (isCustomItem) {
-            reloreCustomitem(item, lores[player.uniqueId]!!)
+            reloreCustomItem(item, lore)
         } else {
-            reloreNormalItem(item, lores[player.uniqueId]!!)
+            reloreNormalItem(item, lore)
         }
         player.persistentDataContainer.remove(NamespacedKey(plugin, "newloretag"))
         lores.remove(player.uniqueId)
@@ -124,7 +134,7 @@ class LoreEditTagItem : CustomItem {
         item.itemMeta = meta
     }
 
-    private fun reloreCustomitem(item: ItemStack, newLore: List<String>) {
+    private fun reloreCustomItem(item: ItemStack, newLore: List<String>) {
         val meta = item.itemMeta!!
         val lore = meta.lore!!
 
@@ -138,7 +148,7 @@ class LoreEditTagItem : CustomItem {
                 break
             }
         }
-        for (i in lore.size downTo (lore.size - 4)) {
+        for (i in lore.size - 1 downTo (lore.size - 4)) {
             tier.add(lore[i])
         }
 
@@ -146,7 +156,7 @@ class LoreEditTagItem : CustomItem {
         finalLore.addAll(enchants)
         finalLore.add("§")
         finalLore.addAll(newLore)
-        finalLore.addAll(tier)
+        finalLore.addAll(tier.reversed())
 
         meta.lore = finalLore
         item.itemMeta = meta
