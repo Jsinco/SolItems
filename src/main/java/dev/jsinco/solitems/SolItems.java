@@ -1,13 +1,13 @@
 package dev.jsinco.solitems;
 
 import dev.jsinco.solitems.commands.CommandManager;
-import dev.jsinco.solitems.events.Delay;
 import dev.jsinco.solitems.events.Listeners;
 import dev.jsinco.solitems.events.PassiveListeners;
 import dev.jsinco.solitems.hooks.GlowColorPlaceholder;
 import dev.jsinco.solitems.hooks.PAPIManager;
 import dev.jsinco.solitems.manager.GlowManager;
 import dev.jsinco.solitems.manager.ItemManager;
+import dev.jsinco.solitems.util.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SolItems extends JavaPlugin {
@@ -18,6 +18,10 @@ public final class SolItems extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
+        Util.INSTANCE.loadUtils();
+
         ItemManager itemManager = new ItemManager(this);
         PassiveListeners passiveListeners = new PassiveListeners(this);
 

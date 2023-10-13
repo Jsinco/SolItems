@@ -1,12 +1,26 @@
 package dev.jsinco.solitems.util
 
+import dev.jsinco.solitems.SolItems
 import org.bukkit.ChatColor
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataContainer
+import org.bukkit.persistence.PersistentDataType
 
 
 object Util {
+
+    lateinit var prefix: String
     const val WITH_DELIMITER = "((?<=%1\$s)|(?=%1\$s))"
+    val plugin: SolItems = SolItems.getPlugin()
+
+    fun loadUtils() {
+        prefix = colorcode(plugin.config.getString("prefix")!!)
+    }
 
     /**
      * @param text The string of text to apply color/effects to
@@ -75,5 +89,27 @@ object Util {
         player.inventory.itemInMainHand.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
         player.inventory.itemInOffHand.itemMeta?.persistentDataContainer?.let { nbtList.add(it) }
         return nbtList
+    }
+
+    fun createBasicItem(
+        name: String,
+        lore: List<String>,
+        material: Material,
+        datas: List<String>,
+        glint: Boolean
+    ): ItemStack {
+        val item = ItemStack(material)
+        val meta = item.itemMeta!!
+        meta.setDisplayName(colorcode(name))
+        meta.lore = colorcodeList(lore)
+        for (data in datas) {
+            meta.persistentDataContainer.set(NamespacedKey(plugin, data), PersistentDataType.SHORT, 1)
+        }
+        if (glint) {
+            meta.addEnchant(Enchantment.DURABILITY, 10, true)
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
+        }
+        item.itemMeta = meta
+        return item
     }
 }

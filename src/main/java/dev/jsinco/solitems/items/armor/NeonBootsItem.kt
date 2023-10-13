@@ -1,33 +1,99 @@
 package dev.jsinco.solitems.items.armor
 
+import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.metadata.FixedMetadataValue
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
+import org.bukkit.util.Vector
+import java.util.UUID
 
 class NeonBootsItem : CustomItem {
+
+    companion object {
+        val plugin: SolItems = SolItems.getPlugin()
+        val directions: MutableMap<UUID, Vector> = mutableMapOf()
+
+        val activeFastLane: MutableList<UUID> = mutableListOf()
+        val cooldown: MutableList<UUID> = mutableListOf()
+    }
+
     override fun createItem(): Pair<String, ItemStack> {
         val item = CreateItem(
-            "&#fbf334&lN&#e5e04d&le&#cecd66&lo&#b8b97f&ln &#a1a699&lB&#8b93b2&lo&#7480cb&lo&#5e6ce4&lt&#4759fd&ls",
-            mutableListOf("&#4759fdF&#7a5bd2a&#ae5ca7s&#e15e7ct &#fc767cL&#fda4a8a&#fed1d3n&#ffffffe"),
-            mutableListOf("No lore yet"),
+            "&#ffe800&lT&#e9e917&lh&#d3ea2e&lu&#bdec45&ln&#a7ed5c&ld&#91ee73&le&#7bef8a&lr &#67e198&lS&#56c49d&lt&#45a7a2&lr&#348aa7&li&#226cac&ld&#114fb1&le&#0032b6&ls",
+            mutableListOf("&#70f096F&#60daa5a&#50c4b4s&#40aec3t &#3099d2L&#2083e1a&#106df0n&#0057ffe"),
+            mutableListOf("Crouch to activate a speed boost", "during your boost, crouch to slide","","&cCooldown: 10 secs"),
             Material.NETHERITE_BOOTS,
             mutableListOf("neonboots"),
-            mutableMapOf(Enchantment.MENDING to 1)
+            mutableMapOf(Enchantment.PROTECTION_ENVIRONMENTAL to 7, Enchantment.PROTECTION_PROJECTILE to 7, Enchantment.PROTECTION_FALL to 8 , Enchantment.DURABILITY to 10 ,Enchantment.MENDING to 1)
         )
+        item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
         return Pair("neonboots", item.createItem())
     }
 
+    // TODO: Add particles
+
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
+
         when (type) {
             Ability.PLAYER_CROUCH ->{
-                //player.velocity = player.
+                if (!player.isSneaking || cooldown.contains(player.uniqueId)) return false
+
+                if (activeFastLane.contains(player.uniqueId)) {
+                    slideAbility(player)
+                } else if (!activeFastLane.contains(player.uniqueId)) {
+                    startFastLane(player)
+                }
+            }
+            Ability.MOVE -> {
+                val playerMoveEvent: PlayerMoveEvent = event as PlayerMoveEvent
+                val vector = playerMoveEvent.to.clone().subtract(playerMoveEvent.from.clone()).toVector()
+                directions[player.uniqueId] = vector
             }
             else -> return false
         }
         return true
+    }
+
+    private fun startCooldown(uuid: UUID) {
+        cooldown.add(uuid)
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
+            cooldown.remove(uuid)
+        }, 200L)
+    }
+
+
+    private fun startFastLane(player: Player) {
+        player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 140, 2, false, false, false))
+        activeFastLane.add(player.uniqueId)
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
+            stopFastLane(player)
+        }, 140L)
+    }
+
+    private fun stopFastLane(player: Player) {
+        activeFastLane.remove(player.uniqueId)
+        startCooldown(player.uniqueId)
+    }
+
+    private fun slideAbility(player: Player) {
+        //if (player.hasMetadata("sliding")) return
+
+        //player.setMetadata("sliding", FixedMetadataValue(plugin, true))
+        player.velocity = directions[player.uniqueId]!!.multiply(7.5).setY(-0.1)
+
+        //Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
+        //    player.removeMetadata("sliding", plugin)
+        //}, 1L)
     }
 }

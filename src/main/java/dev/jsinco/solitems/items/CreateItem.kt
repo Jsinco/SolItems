@@ -24,10 +24,7 @@ class CreateItem(
         private val plugin: SolItems = SolItems.getPlugin()
     }
 
-    var tier: List<String> = listOf(
-        "&#EEE1D5&m       &r&#EEE1D5⋆⁺₊⋆ ★ ⋆⁺₊⋆&m       ",
-        "&#EEE1D5Tier • &#ffc8c8&lC&#ffcfc8&le&#ffd5c7&ll&#ffdcc7&le&#ffe3c7&ls&#ffe9c6&lt&#fff0c6&li&#fff6c5&la&#fffdc5&ll",
-        "&#EEE1D5&m       &r&#EEE1D5⋆⁺₊⋆ ★ ⋆⁺₊⋆&m       ")
+    var tier: String = "&#ffc8c8&lC&#ffcfc8&le&#ffd5c7&ll&#ffdcc7&le&#ffe3c7&ls&#ffe9c6&lt&#fff0c6&li&#fff6c5&la&#fffdc5&ll"
 
     var unbreakable: Boolean = false
     var hideEnchants: Boolean = false
@@ -37,7 +34,7 @@ class CreateItem(
         val item = ItemStack(material)
         val meta = item.itemMeta!!
 
-
+        meta.persistentDataContainer.set(NamespacedKey(plugin, "forged"), PersistentDataType.SHORT, 1)
         for (name in persistentData) {
             meta.persistentDataContainer.set(NamespacedKey(plugin, name), PersistentDataType.SHORT, 1)
         }
@@ -49,7 +46,9 @@ class CreateItem(
         combinedLore.add("§")
         combinedLore.addAll(lore.map { "&f$it" })
         combinedLore.add("")
-        combinedLore.addAll(tier)
+        combinedLore.add("&#EEE1D5&m       &r&#EEE1D5⋆⁺₊⋆ ★ ⋆⁺₊⋆&m       ")
+        combinedLore.add("&#EEE1D5Tier • $tier")
+        combinedLore.add("&#EEE1D5&m       &r&#EEE1D5⋆⁺₊⋆ ★ ⋆⁺₊⋆&m       ")
 
         meta.lore = Util.colorcodeList(combinedLore)
 

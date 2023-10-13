@@ -1,6 +1,7 @@
 package dev.jsinco.solitems.manager
 
 import dev.jsinco.solitems.SolItems
+import dev.jsinco.solitems.candles.action.HoarderCandle
 import dev.jsinco.solitems.candles.action.SaturationCandle
 import dev.jsinco.solitems.candles.effects.HeroOfTheVillageCandle
 import dev.jsinco.solitems.candles.effects.StrengthCandle
@@ -27,6 +28,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(SunlightBladeItem())
         addCustomItemClass(SunlightScytheItem())
         addCustomItemClass(ViperHatchetItem())
+        addCustomItemClass(BrewmastersSpellbladeItem())
         // Tools
         addCustomItemClass(CrescentMoonHatchetItem())
         addCustomItemClass(DarkMoonMattockItem())
@@ -40,6 +42,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(StellarisMattockItem())
         addCustomItemClass(StellarisSpadeItem())
         addCustomItemClass(StellarisTomahawkItem())
+        addCustomItemClass(SpellboundShattererItem())
         // Misc
         addCustomItemClass(ArcaneAnglerItem())
         addCustomItemClass(CozyCampFireItem())
@@ -48,6 +51,9 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(SatchelItem())
         addCustomItemClass(SollureItem())
         addCustomItemClass(SweetMelonItem())
+        addCustomItemClass(RenameTagItem())
+        addCustomItemClass(LoreEditTagItem())
+        addCustomItemClass(FrakenshearsItem())
         // TODO: Add OmniTool
         // Armor
         addCustomItemClass(EtherealWingsItem())
@@ -63,12 +69,13 @@ class ItemManager(val plugin: SolItems) {
     }
 
     fun initializeCandleClasses() {
+        // Actions
+        addCustomItemClass(HoarderCandle())
+        addCustomItemClass(SaturationCandle())
         // Effects
         addCustomItemClass(HeroOfTheVillageCandle())
         addCustomItemClass(StrengthCandle())
         addCustomItemClass(WitherCandle())
-        // Actions
-        addCustomItemClass(SaturationCandle())
     }
 
     /**

@@ -6,9 +6,12 @@ import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.ItemManager
 import dev.jsinco.solitems.util.Util
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
+import io.papermc.paper.event.player.AsyncChatEvent
+import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
@@ -17,6 +20,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
+import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -283,7 +287,32 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    fun onPlayerMove(event: PlayerMoveEvent) {
+    @EventHandler (priority = EventPriority.LOWEST)
+    fun onPlayerChat(event: AsyncPlayerChatEvent) {
+        val player = event.player
 
+        val data: PersistentDataContainer = player.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (!data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) continue
+            val customItemClass = customItem.value
+            customItemClass.executeAbilities(Ability.CHAT, player, event)
+            break
+        }
+    }
+
+    @EventHandler
+    fun onPlayerMove(event: PlayerMoveEvent) {
+        if (!event.hasChangedPosition()) return
+        val player = event.player
+        val data: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
+        for (customItem in ItemManager.customItems) {
+            for (itemData in data) {
+                if (!itemData.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) continue
+                val customItemClass = customItem.value
+                customItemClass.executeAbilities(Ability.MOVE, player, event)
+                break
+            }
+        }
     }
 }

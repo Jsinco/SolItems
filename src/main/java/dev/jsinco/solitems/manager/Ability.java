@@ -17,5 +17,7 @@ public enum Ability {
     ARMOR_SWAP,
     RUNNABLE, // Mapped, full equipment support
     PLAYER_CROUCH, // Mapped, full equipment support
-    ENTITY_DAMAGE_BY_SELF
+    ENTITY_DAMAGE_BY_SELF,
+    CHAT,
+    MOVE
 }

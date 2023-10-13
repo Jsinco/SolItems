@@ -17,7 +17,7 @@ import java.util.*
 object AbilityUtil {
 
     val plugin: SolItems = SolItems.getPlugin()
-    private val blockTypeBlacklist = listOf( // Move to YAML file
+    val blockTypeBlacklist = listOf( // Move to YAML file
         Material.CHEST,
         Material.SHULKER_BOX,
         Material.BARREL,
