@@ -25,6 +25,7 @@ class FileManager(fileName: String) {
                 file.createNewFile()
                 returnValue = true
             }
+
             if (plugin.getResource(file.name) != null) {
                 val inputStream = plugin.getResource(file.name)
                 val outputStream = Files.newOutputStream(file.toPath())

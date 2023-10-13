@@ -21,11 +21,16 @@ repositories {
         name = "placeholderapi"
         url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
     }
+    maven {
+        name = "iridiumdevelopment"
+        url = "https://nexus.iridiumdevelopment.net/repository/maven-releases/"
+    }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT"
     compileOnly "me.clip:placeholderapi:2.11.3"
+    compileOnly "com.iridium:IridiumColorAPI:1.0.6"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }

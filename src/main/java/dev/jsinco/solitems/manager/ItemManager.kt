@@ -54,6 +54,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(RenameTagItem())
         addCustomItemClass(LoreEditTagItem())
         addCustomItemClass(FrakenshearsItem())
+        addCustomItemClass(StellarStarItem())
         // TODO: Add OmniTool
         // Armor
         addCustomItemClass(EtherealWingsItem())
