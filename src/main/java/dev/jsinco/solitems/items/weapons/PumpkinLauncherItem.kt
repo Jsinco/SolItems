@@ -22,13 +22,14 @@ class PumpkinLauncherItem : CustomItem {
 
     override fun createItem(): Pair<String, ItemStack> {
         val item = CreateItem(
-            "&#fb782e&lP&#fb8535&lu&#fb933b&lm&#fba042&lp&#fcb34d&lk&#fdcb5c&li&#fee26c&ln &#fffa7b&lL&#fee26c&la&#fdcb5c&lu&#fcb34d&ln&#fca142&lc&#fd943c&lh&#fe8735&le&#ff7a2f&lr",
-            mutableListOf("&#fb9638J&#fba737a&#fcb736c&#fcc836k&#fdd835-&#fde934O"),
-            mutableListOf("Shoots explosive pumpkins"),
+            "&#fb6c1b&lP&#fb751b&lu&#fb7f1a&lm&#fb881a&lp&#fb921a&lk&#fb9b1a&li&#fba519&ln &#fbae19&lL&#fba519&la&#fb9b1a&lu&#fb921a&ln&#fb881a&lc&#fb7f1a&lh&#fb751b&le&#fb6c1b&lr",
+            mutableListOf("&#fb9638J&#fb9a33a&#fb9e2ec&#fba229k&#fba623-&#fbaa1eO&#fbae19'"),
+            mutableListOf("&#fb7a43\"&#fb7d42A&#fb8041b&#fb8440s&#fb873eo&#fb8a3dl&#fb8d3cu&#fb913bt&#fb943ae&#fb9739l&#fb9a38y &#fb9e37m&#fba135a&#fba434n&#fba733i&#fbaa32a&#fbae31c&#fbb130a&#fbb42fl&#fbb72d.&#fbbb2c.&#fbbe2b.&#fbc12a\"","","Upon charging and releasing, this","bow will launch a pumpkin that","explodes on impact"),
             Material.BOW,
             mutableListOf("pumpkinlauncher"),
-            mutableMapOf(Enchantment.ARROW_DAMAGE to(8), Enchantment.ARROW_INFINITE to 1, Enchantment.ARROW_KNOCKBACK to 5, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
+            mutableMapOf(Enchantment.ARROW_DAMAGE to 7, Enchantment.ARROW_INFINITE to 1, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
         )
+        item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
         return Pair("pumpkinlauncher", item.createItem())
     }
 
@@ -96,7 +97,7 @@ class PumpkinLauncherItem : CustomItem {
             }
         })
 
-        projectile.world.createExplosion(projectile.location, 10f, false, false)
+        projectile.world.createExplosion(projectile.location, 5f, false, false)
         projectile.remove()
     }
 

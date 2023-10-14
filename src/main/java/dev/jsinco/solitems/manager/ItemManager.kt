@@ -61,12 +61,15 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(FlameguardGreavesItem())
         addCustomItemClass(LuminaLensesItem())
         addCustomItemClass(MoonWalkersItem())
-        addCustomItemClass(NeonBootsItem())
+        addCustomItemClass(ThunderStridesItem())
         addCustomItemClass(NeptunesCrownItem())
         addCustomItemClass(OpticCuirassItem())
         addCustomItemClass(RibbonBootsItem())
         addCustomItemClass(RubyPinionsItem())
         addCustomItemClass(StarweaveAegisItem())
+
+
+        addCustomItemClass(DeoriumCutlassItem())
     }
 
     fun initializeCandleClasses() {

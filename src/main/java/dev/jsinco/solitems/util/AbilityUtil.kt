@@ -122,7 +122,9 @@ object AbilityUtil {
     }
 
     // Stellaris' Set
-    fun pinataAbility(player: Player, block: Block) {
+    fun pinataAbility(block: Block) {
+        if (Random().nextInt(32000) >= 14) return
+
         val pinataFile = FileManager("saves/pinata.yml").getFileYaml()
         val items = pinataFile.getConfigurationSection("items")!!.getKeys(false)
         val rareItems = pinataFile.getConfigurationSection("rare-items")!!.getKeys(false)

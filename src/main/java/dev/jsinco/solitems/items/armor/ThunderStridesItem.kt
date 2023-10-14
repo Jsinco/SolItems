@@ -9,15 +9,13 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerMoveEvent
-import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.inventory.ItemStack
-import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.util.Vector
 import java.util.UUID
 
-class NeonBootsItem : CustomItem {
+class ThunderStridesItem : CustomItem {
 
     companion object {
         val plugin: SolItems = SolItems.getPlugin()
@@ -33,11 +31,11 @@ class NeonBootsItem : CustomItem {
             mutableListOf("&#70f096F&#60daa5a&#50c4b4s&#40aec3t &#3099d2L&#2083e1a&#106df0n&#0057ffe"),
             mutableListOf("Crouch to activate a speed boost", "during your boost, crouch to slide","","&cCooldown: 10 secs"),
             Material.NETHERITE_BOOTS,
-            mutableListOf("neonboots"),
+            mutableListOf("thunderstrides"),
             mutableMapOf(Enchantment.PROTECTION_ENVIRONMENTAL to 7, Enchantment.PROTECTION_PROJECTILE to 7, Enchantment.PROTECTION_FALL to 8 , Enchantment.DURABILITY to 10 ,Enchantment.MENDING to 1)
         )
         item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
-        return Pair("neonboots", item.createItem())
+        return Pair("thunderstrides", item.createItem())
     }
 
     // TODO: Add particles
@@ -46,7 +44,7 @@ class NeonBootsItem : CustomItem {
 
         when (type) {
             Ability.PLAYER_CROUCH ->{
-                if (!player.isSneaking || cooldown.contains(player.uniqueId)) return false
+                if (!player.isSneaking || cooldown.contains(player.uniqueId) || player.isFlying) return false
 
                 if (activeFastLane.contains(player.uniqueId)) {
                     slideAbility(player)
@@ -55,6 +53,7 @@ class NeonBootsItem : CustomItem {
                 }
             }
             Ability.MOVE -> {
+                if (!activeFastLane.contains(player.uniqueId)) return false
                 val playerMoveEvent: PlayerMoveEvent = event as PlayerMoveEvent
                 val vector = playerMoveEvent.to.clone().subtract(playerMoveEvent.from.clone()).toVector()
                 directions[player.uniqueId] = vector
@@ -87,13 +86,6 @@ class NeonBootsItem : CustomItem {
     }
 
     private fun slideAbility(player: Player) {
-        //if (player.hasMetadata("sliding")) return
-
-        //player.setMetadata("sliding", FixedMetadataValue(plugin, true))
-        player.velocity = directions[player.uniqueId]!!.multiply(7.5).setY(-0.1)
-
-        //Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-        //    player.removeMetadata("sliding", plugin)
-        //}, 1L)
+        player.velocity = directions[player.uniqueId]?.multiply(7.5)?.setY(-0.1) ?: return
     }
 }

@@ -9,6 +9,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
+import kotlin.random.Random
 
 class StellarisSpadeItem : CustomItem {
     override fun createItem(): Pair<String, ItemStack> {
@@ -27,7 +28,7 @@ class StellarisSpadeItem : CustomItem {
         val blockBreakEvent: BlockBreakEvent? = event as? BlockBreakEvent
         when (type) {
             Ability.BREAK_BLOCK -> {
-                AbilityUtil.pinataAbility(player, blockBreakEvent!!.block)
+                AbilityUtil.pinataAbility(blockBreakEvent!!.block)
             }
 
             else -> return false

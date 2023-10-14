@@ -43,8 +43,9 @@ public class AnvilPrevention implements Listener {
             }
         }
 
+        event.setCancelled(cancelEvent);
         if (cancelEvent) {
-            event.setCancelled(true);
+            event.getWhoClicked().sendMessage(Util.prefix + " You cannot use this item in an anvil!");
         }
     }
 }
