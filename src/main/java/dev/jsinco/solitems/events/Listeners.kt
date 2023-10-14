@@ -6,10 +6,6 @@ import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.ItemManager
 import dev.jsinco.solitems.util.Util
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
-import io.papermc.paper.event.entity.EntityMoveEvent
-import io.papermc.paper.event.player.AsyncChatEvent
-import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -17,19 +13,8 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.event.entity.EntityChangeBlockEvent
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityDamageEvent
-import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.event.entity.ProjectileHitEvent
-import org.bukkit.event.entity.ProjectileLaunchEvent
-import org.bukkit.event.player.AsyncPlayerChatEvent
-import org.bukkit.event.player.PlayerDropItemEvent
-import org.bukkit.event.player.PlayerFishEvent
-import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerMoveEvent
-import org.bukkit.event.player.PlayerSwapHandItemsEvent
-import org.bukkit.event.player.PlayerToggleSneakEvent
+import org.bukkit.event.entity.*
+import org.bukkit.event.player.*
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 
@@ -181,7 +166,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     fun onPlayerBreakBlock(event: BlockBreakEvent) {
         val player = event.player
 
@@ -319,4 +304,19 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
+    @EventHandler
+    fun onPlayerConsumeItem(event: PlayerItemConsumeEvent) {
+        val player = event.player
+        val item = event.item
+        if (!item.hasItemMeta()) return
+
+        val data: PersistentDataContainer = item.itemMeta!!.persistentDataContainer
+
+        for (customItem in ItemManager.customItems) {
+            if (!data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) continue
+            val customItemClass = customItem.value
+            customItemClass.executeAbilities(Ability.CONSUME_ITEM, player, event)
+            break
+        }
+    }
 }

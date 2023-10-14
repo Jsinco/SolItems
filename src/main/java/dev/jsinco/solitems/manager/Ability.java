@@ -19,5 +19,6 @@ public enum Ability {
     PLAYER_CROUCH, // Mapped, full equipment support
     ENTITY_DAMAGE_BY_SELF,
     CHAT,
-    MOVE
+    MOVE,
+    CONSUME_ITEM
 }

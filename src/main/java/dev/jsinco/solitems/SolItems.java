@@ -31,7 +31,7 @@ public final class SolItems extends JavaPlugin {
         itemManager.initializeCandleClasses();
         passiveListeners.startMainRunnable();
 
-        GlowManager.initGlowTeams(); // Convert to object
+        GlowManager.initGlowTeams();
         getServer().getPluginManager().registerEvents(new Listeners(this), this);
         getServer().getPluginManager().registerEvents(new AnvilPrevention(this), this);
         getCommand("solitems").setExecutor(new CommandManager(this));

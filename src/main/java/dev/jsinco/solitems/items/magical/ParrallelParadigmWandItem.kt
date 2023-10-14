@@ -5,12 +5,7 @@ import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.AbilityUtil
-import org.bukkit.Bukkit
-import org.bukkit.EntityEffect
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.Particle
-import org.bukkit.Sound
+import org.bukkit.*
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.*
 import org.bukkit.event.entity.ProjectileHitEvent
@@ -43,15 +38,14 @@ class ParrallelParadigmWandItem : CustomItem {
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
         when (type) {
             Ability.LEFT_CLICK -> {
-                if (takeLapisCost(player)) {
-                    spawnWandProjectile(player)
-                }
+                spawnWandProjectile(player)
             }
 
             Ability.PROJECTILE_LAND -> {
-                event as ProjectileHitEvent;
+                event as ProjectileHitEvent
                 val entity = event.hitEntity ?: return false
                 if (entity is LivingEntity && entity.type != EntityType.ARMOR_STAND && !AbilityUtil.noDamagePermission(player, entity)) {
+                    if (!takeLapisCost(player)) return false
                     player.playSound(player.location, Sound.ENTITY_EVOKER_CAST_SPELL, 1f, 1f)
 
                     when (Random.nextInt(1, 6)) {

@@ -7,6 +7,14 @@ permissions:
   solitems.command.give:
     description: Gives a player a SolItem
     default: op
+  solitems.command.pinatafile:
+    description: Internal command for adding items to pinata ability prizepool
+    default: false
+  solitems.command.stellarstar:
+    description: Command to give a player a Stellar Star
+    default: op
 commands:
   solitems:
     description: SolItems command
+    permission: solitems.command
+    usage: /<command>
