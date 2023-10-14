@@ -35,7 +35,7 @@ class StellarStarItem : CustomItem {
         stellarStarFile.generateFile() //TODO: cleanup
     }
 
-    private lateinit var stellarStar: ItemStack
+    lateinit var stellarStar: ItemStack
 
 
     override fun createItem(): Pair<String, ItemStack> {

@@ -1,6 +1,7 @@
 package dev.jsinco.solitems.commands
 
 import dev.jsinco.solitems.SolItems
+import dev.jsinco.solitems.items.misc.StellarStarItem
 import dev.jsinco.solitems.util.Util
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
@@ -15,18 +16,24 @@ class StellarStarGiveCommand : SubCommand {
             return
         }
 
+        val stellarStar = StellarStarItem().createItem().second
+        stellarStar.amount = amount
 
+        player.inventory.addItem(stellarStar)
     }
 
     override fun tabComplete(plugin: SolItems, sender: CommandSender, args: Array<out String>): List<String>? {
-        TODO("Not yet implemented")
+        if (args.size == 3) {
+            return listOf("<amount>")
+        }
+        return null
     }
 
     override fun permission(): String? {
-        TODO("Not yet implemented")
+        return "solitems.command.stellarstar"
     }
 
     override fun playerOnly(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 }
