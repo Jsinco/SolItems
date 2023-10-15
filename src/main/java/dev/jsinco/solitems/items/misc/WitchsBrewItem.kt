@@ -88,8 +88,11 @@ class WitchsBrewItem : CustomItem {
                 val potion = event.item
                 val potionMeta = potion.itemMeta as PotionMeta
                 potionMeta.color = Color.fromRGB(Random.nextInt(244), Random.nextInt(244), Random.nextInt(244))
-                potion.itemMeta = potionMeta
-                player.inventory.setItemInMainHand(potion)
+                for (item in player.inventory) {
+                    if (item == potion) {
+                        item.itemMeta = potionMeta
+                    }
+                }
             }
             else -> return false
         }
