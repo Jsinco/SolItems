@@ -99,7 +99,6 @@ class LuminaLensesItem : CustomItem {
         if (!meta.persistentDataContainer.has(NamespacedKey(plugin, "LuminaLenses"), PersistentDataType.SHORT)) return
         val currentCharge: Short = meta.persistentDataContainer.get(NamespacedKey(plugin, "LuminaLenses"), PersistentDataType.SHORT)!!
         if (currentCharge > 0) {
-            Bukkit.broadcastMessage((currentCharge - 1).toShort().toString() + currentCharge + currentCharge.toShort())
             meta.persistentDataContainer.set(NamespacedKey(plugin, "LuminaLenses"), PersistentDataType.SHORT, (currentCharge - 1).toShort())
             val lore = meta.lore!!
             for (i in lore.indices) {
@@ -113,9 +112,9 @@ class LuminaLensesItem : CustomItem {
     }
 
     private fun addNoctalEffects(player: Player) {
-        player.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 220, 0, false, false, false))
-        player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 220, 0, false, false, false))
-        player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 220, 0, false, false, false))
-        player.addPotionEffect(PotionEffect(PotionEffectType.REGENERATION, 220, 0, false, false, false))
+        player.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 400, 0, false, false, false))
+        player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 400, 0, false, false, false))
+        player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 400, 0, false, false, false))
+        player.addPotionEffect(PotionEffect(PotionEffectType.REGENERATION, 400, 0, false, false, false))
     }
 }

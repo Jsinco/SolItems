@@ -53,10 +53,10 @@ class StellarStarItem : CustomItem {
         when (type) {
             Ability.RIGHT_CLICK -> {
                 if (player.inventory.itemInMainHand.itemMeta.persistentDataContainer.has(NamespacedKey(plugin, "stellarstar"), PersistentDataType.SHORT)) {
-                    player.inventory.itemInMainHand.amount -= 1
                     val item = getStellarTool()
                     item.itemMeta = generateDecals(item)
                     player.inventory.addItem(item)
+                    player.inventory.itemInMainHand.amount -= 1
                 }
             }
 

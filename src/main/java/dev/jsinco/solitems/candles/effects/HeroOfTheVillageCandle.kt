@@ -6,6 +6,8 @@ import dev.jsinco.solitems.manager.CustomItem
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class HeroOfTheVillageCandle : CustomItem {
     override fun createItem(): Pair<String, ItemStack> {
@@ -22,7 +24,7 @@ class HeroOfTheVillageCandle : CustomItem {
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
         when (type) {
             Ability.RUNNABLE -> {
-                player.addPotionEffect(org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.HERO_OF_THE_VILLAGE, 220, 5, false, false, false))
+                player.addPotionEffect(PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, 220, 5, false, false, false))
             }
             else -> return false
         }
