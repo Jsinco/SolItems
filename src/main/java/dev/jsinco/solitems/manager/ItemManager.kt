@@ -45,6 +45,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(StellarisSpadeItem())
         addCustomItemClass(StellarisTomahawkItem())
         addCustomItemClass(SpellboundShattererItem())
+        addCustomItemClass(AutumnsMattockItem())
         // Misc
         addCustomItemClass(ArcaneAnglerItem())
         addCustomItemClass(CozyCampFireItem())
@@ -57,7 +58,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(LoreEditTagItem())
         addCustomItemClass(FrakenshearsItem())
         addCustomItemClass(StellarStarItem())
-        addCustomItemClass(AutumnHarrowerItem())
+        addCustomItemClass(AutumnsHarrowerItem())
         addCustomItemClass(WitchsBrewItem())
         // TODO: Add OmniTool
         // Armor

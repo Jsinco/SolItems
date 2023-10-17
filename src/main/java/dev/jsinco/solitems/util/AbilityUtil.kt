@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.util.Vector
 import java.util.*
@@ -60,6 +61,13 @@ object AbilityUtil {
         val from = start.toVector()
         val to = end.toVector()
         return to.subtract(from)
+    }
+
+    fun findMostCommonItem(collection: Collection<ItemStack>): ItemStack {
+        return collection.groupingBy { it }
+            .eachCount()
+            .maxBy { it.value }
+            .key
     }
 
 

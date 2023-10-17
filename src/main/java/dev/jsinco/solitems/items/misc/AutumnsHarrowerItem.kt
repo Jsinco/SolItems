@@ -4,6 +4,7 @@ import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
+import dev.jsinco.solitems.util.AbilityUtil
 import org.bukkit.*
 import org.bukkit.Particle.DustOptions
 import org.bukkit.block.Block
@@ -13,7 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 
-class AutumnHarrowerItem : CustomItem {
+class AutumnsHarrowerItem : CustomItem {
 
     companion object {
         private val plugin: SolItems = SolItems.getPlugin()
@@ -28,7 +29,7 @@ class AutumnHarrowerItem : CustomItem {
 
     override fun createItem(): Pair<String, ItemStack> {
         val item = CreateItem(
-            "&#cd3c33&lA&#d3442b&lu&#da4c23&lt&#e0541b&lu&#e75b13&lm&#ec6a10&ln &#f07c11&lH&#f38d11&la&#f79f12&lr&#faac11&lr&#faaf0f&lo&#fbb10d&lw&#fbb40a&le&#fbb708&lr",
+            "&#cd3c33&lA&#d2452e&lu&#d64d2a&lt&#db5625&lu&#e05e21&lm&#e4671c&ln&#e96f18&l'&#ee7813&ls &#f18010&lH&#f2880f&la&#f4900e&lr&#f5980d&lr&#f79f0c&lo&#f8a70a&lw&#faaf09&le&#fbb708&lr",
             mutableListOf("&#e95e10F&#eb670fu&#ed700el&#ee790el &#f0820dH&#f28b0ca&#f4930br&#f69c0av&#f7a50ae&#f9ae09s&#fbb708t"),
             mutableListOf("Breaking crops with this hoe", "will occasionally yield a", "surplus amount"),
             Material.NETHERITE_HOE,
@@ -40,7 +41,7 @@ class AutumnHarrowerItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        if (Random.nextInt(100) > 5) return false
+        if (Random.nextInt(1000) > 2) return false
         when (type) {
             Ability.BREAK_BLOCK -> {
                 val blockBreakEvent = event as BlockBreakEvent
@@ -53,7 +54,7 @@ class AutumnHarrowerItem : CustomItem {
 
 
     private fun fullHarvest(block: Block, drops: Collection<ItemStack>) {
-        val item = findMostCommonItem(drops)
+        val item = AbilityUtil.findMostCommonItem(drops)
 
         if (crops.containsKey(item.type)) {
             block.world.spawnParticle(
@@ -80,11 +81,4 @@ class AutumnHarrowerItem : CustomItem {
         }, 150)
     }
 
-    // TODO: Move to Util?
-    private fun findMostCommonItem(collection: Collection<ItemStack>): ItemStack {
-        return collection.groupingBy { it }
-            .eachCount()
-            .maxBy { it.value }
-            .key
-    }
 }
