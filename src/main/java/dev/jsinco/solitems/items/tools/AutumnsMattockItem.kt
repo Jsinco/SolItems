@@ -41,12 +41,7 @@ class AutumnsMattockItem : CustomItem {
             mutableListOf("Breaking ores with this pickaxe", "will occasionally yield a", "surplus amount of drops"),
             Material.NETHERITE_PICKAXE,
             mutableListOf("autumnsmattock"),
-            mutableMapOf(
-                Enchantment.DURABILITY to 10,
-                Enchantment.LOOT_BONUS_BLOCKS to 6,
-                Enchantment.MENDING to 1,
-                Enchantment.DIG_SPEED to 7
-            )
+            mutableMapOf(Enchantment.DURABILITY to 10, Enchantment.LOOT_BONUS_BLOCKS to 6, Enchantment.MENDING to 1, Enchantment.DIG_SPEED to 7)
         )
         item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
         return Pair("autumnsmattock", item.createItem())
