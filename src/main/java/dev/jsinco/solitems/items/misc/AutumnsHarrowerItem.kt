@@ -31,7 +31,7 @@ class AutumnsHarrowerItem : CustomItem {
         val item = CreateItem(
             "&#cd3c33&lA&#d2452e&lu&#d64d2a&lt&#db5625&lu&#e05e21&lm&#e4671c&ln&#e96f18&l'&#ee7813&ls &#f18010&lH&#f2880f&la&#f4900e&lr&#f5980d&lr&#f79f0c&lo&#f8a70a&lw&#faaf09&le&#fbb708&lr",
             mutableListOf("&#e95e10F&#eb670fu&#ed700el&#ee790el &#f0820dH&#f28b0ca&#f4930br&#f69c0av&#f7a50ae&#f9ae09s&#fbb708t"),
-            mutableListOf("Breaking crops with this hoe", "will occasionally yield a", "surplus amount of crops"),
+            mutableListOf("Breaking crops with this hoe", "will occasionally yield a", "surplus amount of drops"),
             Material.NETHERITE_HOE,
             mutableListOf("autumnharrower"),
             mutableMapOf(Enchantment.MENDING to 1, Enchantment.DURABILITY to 10, Enchantment.LOOT_BONUS_BLOCKS to 5, Enchantment.DIG_SPEED to 7)

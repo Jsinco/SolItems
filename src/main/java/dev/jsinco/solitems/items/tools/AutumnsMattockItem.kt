@@ -30,7 +30,7 @@ class AutumnsMattockItem : CustomItem {
             // Nether ores
             Material.GOLD_NUGGET to Color.fromRGB(191, 154, 31),
             Material.QUARTZ to Color.fromRGB(185, 160, 154),
-            Material.ANCIENT_DEBRIS to Color.fromRGB(77, 56, 50)
+            //Material.ANCIENT_DEBRIS to Color.fromRGB(77, 56, 50)
         )
     }
 

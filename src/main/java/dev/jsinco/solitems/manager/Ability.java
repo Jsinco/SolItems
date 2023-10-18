@@ -20,5 +20,6 @@ public enum Ability {
     ENTITY_DAMAGE_BY_SELF,
     CHAT,
     MOVE,
-    CONSUME_ITEM
+    CONSUME_ITEM,
+    ENTITY_CHANGE_BLOCK
 }

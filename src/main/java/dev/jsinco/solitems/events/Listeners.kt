@@ -6,6 +6,8 @@ import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.ItemManager
 import dev.jsinco.solitems.util.Util
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
+import io.papermc.paper.event.entity.EntityMoveEvent
+import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -18,6 +20,12 @@ import org.bukkit.event.player.*
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 
+/**
+ * Main listeners class for SolItems
+ * We use persistent data containers to store the custom item data and listen for it
+ * Blocks cannot store persistent data so we will have to store in a file (if needed for long term)
+ * Or have our listeners fire every single executeAbilities() method every time we need to grab data from a block
+ */
 class Listeners(val plugin: SolItems) : Listener {
 
 
@@ -117,7 +125,6 @@ class Listeners(val plugin: SolItems) : Listener {
     @EventHandler
     fun onEntityDeath(event: EntityDeathEvent) {
         val player: Player = event.entity.killer ?: return
-
         val item = player.inventory.itemInMainHand
         if (!item.hasItemMeta()) return
 
@@ -184,7 +191,7 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
-    @EventHandler // TODO: Offhand support
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     fun onPlayerFish(event: PlayerFishEvent) {
         val player = event.player
 
@@ -319,4 +326,24 @@ class Listeners(val plugin: SolItems) : Listener {
             break
         }
     }
+
+    /**
+     * I currently only need to grab the entity for this one.
+     * This event does not require a player, so we use a dummy player for it
+     */
+    @EventHandler
+    fun onEntityChangeBlock(event: EntityChangeBlockEvent) {
+        val entity = event.entity
+
+        val data: PersistentDataContainer = entity.persistentDataContainer
+        val player = Bukkit.getOnlinePlayers().stream().toList()[0]
+
+        for (customItem in ItemManager.customItems) {
+            if (!data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) continue
+            val customItemClass = customItem.value
+            customItemClass.executeAbilities(Ability.ENTITY_CHANGE_BLOCK, player, event)
+            break
+        }
+    }
+
 }
