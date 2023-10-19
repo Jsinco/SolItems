@@ -100,7 +100,7 @@ class LoreEditTagItem : CustomItem {
         val meta = item.itemMeta!!
         var isCustomItem = false
 
-        if (meta.persistentDataContainer.has(NamespacedKey(plugin, "forged"), PersistentDataType.SHORT)) {
+        if (meta.persistentDataContainer.has(NamespacedKey(plugin, "forged"), PersistentDataType.SHORT) || meta.persistentDataContainer.has(NamespacedKey(plugin, "stellar"), PersistentDataType.SHORT)) {
             isCustomItem = true
         } else { // Secondary check
             for (nbt in ItemManager.customItems) {

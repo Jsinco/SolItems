@@ -1,0 +1,46 @@
+package dev.jsinco.solitems;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+public class FixJsincosMistakes implements CommandExecutor {
+
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) return false;
+
+        ItemStack item = player.getInventory().getItemInMainHand();
+
+        if (!item.hasItemMeta()) return false;
+        ItemMeta meta = item.getItemMeta();
+        List<String> lore = meta.hasLore() ? meta.getLore() : null;
+
+
+        if (lore == null) return false;
+        for (String string : lore) {
+            String line = ChatColor.stripColor(string);
+            if (line.contains("Tier") && line.contains("Stellar")) {
+                meta.getPersistentDataContainer().set(new NamespacedKey(SolItems.getPlugin(), "stellar"), PersistentDataType.SHORT, (short) 1);
+                if (meta.hasEnchant(Enchantment.SILK_TOUCH) && meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
+                    meta.removeEnchant(Enchantment.SILK_TOUCH);
+                }
+                item.setItemMeta(meta);
+                player.getInventory().setItemInMainHand(item);
+                return true;
+            }
+        }
+        return true;
+    }
+}

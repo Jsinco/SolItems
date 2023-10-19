@@ -18,3 +18,5 @@ commands:
     description: SolItems command
     permission: solitems.command
     usage: /<command>
+  fixjsincosmistakes:
+    description: Fix my mistakes

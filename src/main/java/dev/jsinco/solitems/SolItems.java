@@ -35,11 +35,10 @@ public final class SolItems extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Listeners(this), this);
         getServer().getPluginManager().registerEvents(new AnvilPrevention(this), this);
         getCommand("solitems").setExecutor(new CommandManager(this));
-
+        getCommand("fixjsincosmistakes").setExecutor(new FixJsincosMistakes());
 
         papiManager.addPlaceholder(new GlowColorPlaceholder());
         papiManager.registerPlaceholders();
-
     }
 
     @Override

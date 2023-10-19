@@ -80,11 +80,11 @@ class StellarStarItem : CustomItem {
         val meta = item.itemMeta
 
         for (i in 0 until numOfEnchants) {
-            if (meta.hasEnchant(Enchantment.SILK_TOUCH) && meta.hasEnchant(Enchantment.MENDING)) {
-                if (Random.nextBoolean()) { // TODO: Fix
+            if (meta.hasEnchant(Enchantment.SILK_TOUCH) && meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
+                if (Random.nextBoolean()) { // FIXME
                     meta.removeEnchant(Enchantment.SILK_TOUCH)
                 } else {
-                    meta.removeEnchant(Enchantment.MENDING)
+                    meta.removeEnchant(Enchantment.LOOT_BONUS_BLOCKS)
                 }
             }
 
@@ -110,7 +110,7 @@ class StellarStarItem : CustomItem {
         meta.setDisplayName(IridiumColorAPI.process("<GRADIENT:$rgb1>&l$prefix</GRADIENT:$rgb2> ${Util.colorcode("&#E2E2E2$type")}"))
         meta.lore = Util.colorcodeList(stellarTier)
         meta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES)
-
+        meta.persistentDataContainer.set(NamespacedKey(plugin, "stellar"), PersistentDataType.SHORT, 1)
         return meta
     }
 }
