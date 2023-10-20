@@ -15,6 +15,7 @@ class CommandManager(val plugin: SolItems) : CommandExecutor, TabCompleter {
         commands["give"] = GiveItemCommand()
         commands["pinatafile"] = PinataFileCommand()
         commands["stellarstar"] = StellarStarGiveCommand()
+        commands["debug"] = DebugCommand()
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {

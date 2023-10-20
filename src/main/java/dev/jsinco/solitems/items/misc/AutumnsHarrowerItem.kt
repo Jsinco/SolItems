@@ -41,7 +41,8 @@ class AutumnsHarrowerItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        if (Random.nextInt(1000) > 2) return false
+        val random = if (player.scoreboardTags.contains("solitems.debug")) 0 else Random.nextInt(1000)
+        if (random > 2) return false
         when (type) {
             Ability.BREAK_BLOCK -> {
                 val blockBreakEvent = event as BlockBreakEvent
