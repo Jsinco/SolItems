@@ -1,13 +1,10 @@
 package dev.jsinco.solitems.manager
 
 import dev.jsinco.solitems.SolItems
-import dev.jsinco.solitems.candles.action.HoarderCandle
-import dev.jsinco.solitems.candles.action.SaturationCandle
-import dev.jsinco.solitems.candles.effects.HeroOfTheVillageCandle
-import dev.jsinco.solitems.candles.effects.StrengthCandle
-import dev.jsinco.solitems.candles.effects.WitherCandle
+import dev.jsinco.solitems.candles.action.*
+import dev.jsinco.solitems.candles.effects.*
 import dev.jsinco.solitems.items.armor.*
-import dev.jsinco.solitems.items.magical.ParallelParadigmWandItem
+import dev.jsinco.solitems.items.magical.*
 import dev.jsinco.solitems.items.misc.*
 import dev.jsinco.solitems.items.tools.*
 import dev.jsinco.solitems.items.weapons.*

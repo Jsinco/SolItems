@@ -62,7 +62,7 @@ class ParallelParadigmWandItem : CustomItem {
         return true
     }
 
-    fun takeLapisCost(player: Player): Boolean {
+    private fun takeLapisCost(player: Player): Boolean {
         if (player.inventory.contains(Material.LAPIS_LAZULI, 1)) {
             player.inventory.removeItem(ItemStack(Material.LAPIS_LAZULI, 1))
             return true

@@ -1,7 +1,6 @@
 package dev.jsinco.solitems.util;
 
 import org.bukkit.Material;
-import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class BestTool {
 
             if (!material.isBlock()) continue;
 
-            /**
+            /*
              * Update: 10/10/2023, I will be converting this to an enum soon
              */
             // I refuse to go the NMS and reflection route
