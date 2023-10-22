@@ -3,6 +3,7 @@ package dev.jsinco.solitems.items.weapons
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
+import dev.jsinco.solitems.util.AbilityUtil
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
@@ -49,7 +50,7 @@ class BrewmastersSpellbladeItem : CustomItem {
         val item = CreateItem(
             "&#813f73&lB&#874976&lr&#8d537a&le&#935d7d&lw&#996780&lm&#9f7184&la&#a57b87&ls&#ab858a&lt&#b18f8e&le&#b79991&lr&#bda394&l'&#c0a68f&ls &#c1a281&lS&#c19f72&lp&#c29b64&le&#c29756&ll&#c39447&ll&#c39039&lb&#c48c2b&ll&#c4881d&la&#c5850e&ld&#c58100&le",
             mutableListOf("&#ab6982H&#b0706de&#b57759x&#bb7d44x&#c08430e&#c58b1bd"),
-            mutableListOf("This tool bestows useful potion effects", "to the wielder and harmful potion effects", "to their opponent"),
+            mutableListOf("This weapon grants a chance", "to give useful effects wielder and harmful", "potion effects to their opponent"),
             Material.NETHERITE_SWORD,
             mutableListOf("brewmastersspellblade"),
             mutableMapOf(Enchantment.DAMAGE_ALL to 8, Enchantment.DAMAGE_ARTHROPODS to 9, Enchantment.DURABILITY to 10, Enchantment.LOOT_BONUS_MOBS to 5, Enchantment.MENDING to 1)
@@ -59,14 +60,14 @@ class BrewmastersSpellbladeItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        val entityDamageEvent: EntityDamageByEntityEvent? = event as? EntityDamageByEntityEvent
 
         when (type) {
             Ability.ENTITY_DAMAGE -> {
-                if (Random.nextInt(100) >= 7) return false
+                event as EntityDamageByEntityEvent
+                if (Random.nextInt(100) >= 7 || AbilityUtil.noDamagePermission(player, event.entity)) return false
 
                 if (Random.nextBoolean()) {
-                    addEffect(opponentEffects.random(), entityDamageEvent!!.entity as LivingEntity)
+                    addEffect(opponentEffects.random(), event.entity as LivingEntity)
                 } else {
                     addEffect(attackerEffects.random(), player)
                 }

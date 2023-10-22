@@ -28,6 +28,6 @@ class PassiveListeners(val plugin: SolItems) {
                     }
                 }
             }
-        }, 0L, 40L)
+        }, 0L, 70L)
     }
 }

@@ -114,7 +114,6 @@ class LuminaLensesItem : CustomItem {
     private fun addNoctalEffects(player: Player) {
         player.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 400, 0, false, false, false))
         player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 400, 0, false, false, false))
-        player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 400, 0, false, false, false))
         player.addPotionEffect(PotionEffect(PotionEffectType.REGENERATION, 400, 0, false, false, false))
     }
 }

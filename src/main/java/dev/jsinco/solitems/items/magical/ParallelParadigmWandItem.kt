@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import kotlin.random.Random
 
-class ParrallelParadigmWandItem : CustomItem {
+class ParallelParadigmWandItem : CustomItem {
 
     companion object {
         private val plugin: SolItems = SolItems.getPlugin()
@@ -24,15 +24,15 @@ class ParrallelParadigmWandItem : CustomItem {
 
     override fun createItem(): Pair<String, ItemStack> {
         val item = CreateItem(
-            "&#349532&lP&#489433&la&#5c9333&lr&#709234&lr&#849134&la&#999035&ll&#ad8e35&ll&#c18d36&le&#d58c36&ll &#e98b37&lP&#fd8a37&la&#f9844b&lr&#f47e5f&la&#f07873&ld&#eb7287&li&#e76c9b&lg&#e365af&lm &#de5fc3&lW&#da59d7&la&#d553eb&ln&#d14dff&ld",
+            "&#349532&lP&#499433&la&#5e9333&lr&#739234&la&#899034&ll&#9e8f35&ll&#b38e35&le&#c88d36&ll &#dd8c36&lP&#f28b37&la&#fb8742&lr&#f68057&la&#f17a6c&ld&#ed7481&li&#e86d96&lg&#e467ab&lm &#df60c0&lW&#da5ad5&la&#d653ea&ln&#d14dff&ld",
             mutableListOf("&#49b12fP&#5ca34da&#70946ar&#838688a&#9778a6d&#aa6ac4i&#be5be1g&#d14dffm"),
             mutableListOf("Left-click to cast a spell", "", "Spells from this wand may", "vary, caution is advised!", "", "&c1 Lapis per spell"),
             Material.BLAZE_ROD,
-            mutableListOf("parrallelparadigmwand"),
+            mutableListOf("parallelparadigmwand"),
             mutableMapOf(Enchantment.DAMAGE_ALL to 5, Enchantment.DAMAGE_ARTHROPODS to 5, Enchantment.FIRE_ASPECT to 4)
         )
         item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
-        return Pair("parrallelparadigmwand", item.createItem())
+        return Pair("parallelparadigmwand", item.createItem())
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
@@ -74,8 +74,13 @@ class ParrallelParadigmWandItem : CustomItem {
         val snowball = player.launchProjectile(Snowball::class.java)
         snowball.setGravity(false)
         snowball.velocity = player.location.direction.multiply(3)
-        snowball.persistentDataContainer.set(NamespacedKey(plugin, "parrallelparadigmwand"), PersistentDataType.SHORT, 1)
+        snowball.persistentDataContainer.set(NamespacedKey(plugin, "parallelparadigmwand"), PersistentDataType.SHORT, 1)
         player.hideEntity(plugin, snowball)
+        for (entity in player.getNearbyEntities(65.0, 65.0, 65.0)) {
+            if (entity is Player) {
+                entity.hideEntity(plugin, snowball)
+            }
+        }
 
         object : BukkitRunnable() {
             override fun run() {

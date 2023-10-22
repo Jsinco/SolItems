@@ -35,7 +35,7 @@ class DeoriumCutlassItem  : CustomItem {
             mutableListOf("Right-click to summon a gravity well", "at a targeted block","","Entities nearby the well will","be damaged and weakened", "", "&cCooldown: 30 secs"),
             Material.NETHERITE_SWORD,
             mutableListOf("deoriumcutlass"),
-            mutableMapOf(Enchantment.DAMAGE_ALL to 8, Enchantment.LOOT_BONUS_MOBS to 5, Enchantment.SILK_TOUCH to 1, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
+            mutableMapOf(Enchantment.DAMAGE_ALL to 8, Enchantment.DAMAGE_UNDEAD to 8, Enchantment.LOOT_BONUS_MOBS to 5, Enchantment.SILK_TOUCH to 1, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
         )
         item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
         return Pair("deoriumcutlass", item.createItem())
@@ -70,7 +70,7 @@ class DeoriumCutlassItem  : CustomItem {
                 entity.velocity = direction.normalize().multiply(distance / 20)
 
                 if (distance <= 2.5 && entity is LivingEntity) {
-                    entity.damage(3.0)
+                    entity.damage(5.0)
                     entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 1, false, false, false))
                 }
                 entity.world.spawnParticle(Particle.REDSTONE, entity.location, 5, 0.6, 0.6, 0.6, 0.8,

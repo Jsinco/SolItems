@@ -1,11 +1,11 @@
 package dev.jsinco.solitems.items.tools
 
+import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.AbilityUtil
 import dev.jsinco.solitems.util.Cuboid
-import dev.jsinco.solitems.util.Util
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -16,11 +16,13 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
-import java.util.Random
+import org.bukkit.metadata.FixedMetadataValue
+import java.util.*
 
 class SpellboundShattererItem : CustomItem {
 
     companion object {
+        private val plugin: SolItems = SolItems.getPlugin()
         private val dustOptions: List<DustOptions> = listOf(
             DustOptions(Color.fromRGB(118, 0, 117), 1f),
             DustOptions(Color.fromRGB(245, 96, 1), 1f),
@@ -42,29 +44,36 @@ class SpellboundShattererItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        val blockBreakEvent: BlockBreakEvent? = event as? BlockBreakEvent
+        if (Random().nextInt(200) >= 3) return false
+
         when (type) {
             Ability.BREAK_BLOCK -> {
-                if (Random().nextInt(100) >= 7) return false
-                shatterNearbyBlocks(blockBreakEvent!!.block)
+                event as BlockBreakEvent
+                shatterNearbyBlocks(event.block, player)
+
             }
             else -> return false
         }
         return true
     }
 
-    private fun shatterNearbyBlocks(block: Block) {
+    private fun shatterNearbyBlocks(block: Block, player: Player) {
+        if (player.hasMetadata("shattering")) return // Prevents infinite recursion
+
         val cuboid = Cuboid(block.location.add(2.0,2.0,2.0), block.location.add(-2.0,-2.0,-2.0))
         block.world.playSound(block.location, Sound.ENTITY_WITCH_AMBIENT, 0.5f, 1f)
         block.world.playSound(block.location, Sound.ENTITY_GENERIC_EXPLODE, 0.2f, 1f)
+
+        player.setMetadata("shattering", FixedMetadataValue(plugin, true))
         for (b in cuboid.blockList()) {
             if (AbilityUtil.blockTypeBlacklist.contains(b.type)) continue
 
             if (Random().nextInt(50) <= 5) {
                 b.world.spawnParticle(Particle.REDSTONE, block.location, 10, 0.5, 0.5, 0.5, 0.1, dustOptions.random())
             }
-            b.breakNaturally()
+            player.breakBlock(b)
             b.world.spawnParticle(Particle.BLOCK_DUST, b.location.add(0.5, 0.5, 0.5), 10, 0.5, 0.5, 0.5, 0.1, b.blockData)
         }
+        player.removeMetadata("shattering", plugin)
     }
 }

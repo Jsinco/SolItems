@@ -44,7 +44,7 @@ class ThunderStridesItem : CustomItem {
 
         when (type) {
             Ability.PLAYER_CROUCH ->{
-                if (!player.isSneaking || cooldown.contains(player.uniqueId) || player.isFlying) return false
+                if (player.isSneaking || cooldown.contains(player.uniqueId) || player.isFlying) return false
 
                 if (activeFastLane.contains(player.uniqueId)) {
                     slideAbility(player)

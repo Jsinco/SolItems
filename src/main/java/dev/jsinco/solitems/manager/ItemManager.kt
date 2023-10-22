@@ -7,7 +7,7 @@ import dev.jsinco.solitems.candles.effects.HeroOfTheVillageCandle
 import dev.jsinco.solitems.candles.effects.StrengthCandle
 import dev.jsinco.solitems.candles.effects.WitherCandle
 import dev.jsinco.solitems.items.armor.*
-import dev.jsinco.solitems.items.magical.ParrallelParadigmWandItem
+import dev.jsinco.solitems.items.magical.ParallelParadigmWandItem
 import dev.jsinco.solitems.items.misc.*
 import dev.jsinco.solitems.items.tools.*
 import dev.jsinco.solitems.items.weapons.*
@@ -74,7 +74,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(RubyPinionsItem())
         addCustomItemClass(StarweaveAegisItem())
         // Magical
-        addCustomItemClass(ParrallelParadigmWandItem())
+        addCustomItemClass(ParallelParadigmWandItem())
     }
 
     fun initializeCandleClasses() {
