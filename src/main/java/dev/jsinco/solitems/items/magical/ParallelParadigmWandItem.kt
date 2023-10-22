@@ -115,16 +115,22 @@ class ParallelParadigmWandItem : CustomItem {
     }
 
     private fun tntEntity(entity: LivingEntity) { // TODO: fake tnt?
+        val tnts = mutableListOf<TNTPrimed>()
         for (i in 0..3) {
             val random = Random.nextDouble(1.0)
             val random2 = Random.nextDouble(1.0)
             val tnt = entity.location.world.spawn(entity.location.add(random,2.0,random2), TNTPrimed::class.java)
             tnt.fuseTicks = 20
+            tnts.add(tnt)
         }
         entity.world.playSound(entity.location, Sound.ENTITY_TNT_PRIMED, 1f, 0.9f)
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             entity.damage(30.0)
-        }, 20)
+            entity.world.createExplosion(entity.location, 3f, false, false)
+            for (tnt in tnts) {
+                tnt.remove()
+            }
+        }, 19)
     }
 
     private fun swapEntityLocations(entity: LivingEntity, entity2: LivingEntity) {
