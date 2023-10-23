@@ -72,6 +72,9 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(StarweaveAegisItem())
         // Magical
         addCustomItemClass(ParallelParadigmWandItem())
+
+        // Temporary
+        addCustomItemClass(HallomaresSwapTeamsItem())
     }
 
     fun initializeCandleClasses() {
