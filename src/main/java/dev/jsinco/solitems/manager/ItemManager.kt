@@ -58,6 +58,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(AutumnsHarrowerItem())
         addCustomItemClass(WitchsBrewItem())
         addCustomItemClass(Unnamed())
+        addCustomItemClass(DarkWickShieldItem())
         // TODO: Add OmniTool
         // Armor
         addCustomItemClass(EtherealWingsItem())
