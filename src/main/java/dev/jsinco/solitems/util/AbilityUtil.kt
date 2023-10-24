@@ -18,9 +18,8 @@ import java.util.*
 object AbilityUtil {
 
     val plugin: SolItems = SolItems.getPlugin()
-    val blockTypeBlacklist = listOf( // Move to YAML file
+    val blockTypeBlacklist = mutableListOf( // Move to YAML file
         Material.CHEST,
-        Material.SHULKER_BOX,
         Material.BARREL,
         Material.TRAPPED_CHEST,
         Material.FURNACE,
@@ -50,6 +49,14 @@ object AbilityUtil {
         Material.VOID_AIR
     )
 
+    init {
+        // Shulker boxes
+        for (material in Material.entries) {
+            if (material.name.contains("SHULKER_BOX")) {
+                blockTypeBlacklist.add(material)
+            }
+        }
+    }
 
     fun noDamagePermission(attacker: Player, damagee: Entity): Boolean {
         val event = EntityDamageByEntityEvent(attacker, damagee, EntityDamageEvent.DamageCause.ENTITY_ATTACK, 1.0)
