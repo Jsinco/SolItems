@@ -44,16 +44,16 @@ class DarkWickShieldItem : CustomItem {
 
 
     private fun countdownLighter(player: Player) {
-        if (cooldown.contains(player.uniqueId)) return
-        cooldown(player.uniqueId)
+        if (cooldown.contains(player.uniqueId) || !player.isSneaking) return
+
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             if (!player.isSneaking) return@scheduleSyncDelayedTask
-            else if (player.inventory.itemInMainHand.type != Material.SHIELD && player.inventory.itemInOffHand.type != Material.SHIELD) return@scheduleSyncDelayedTask
             player.world.createExplosion(player.location, 7f, false, false, player)
             player.world.spawnParticle(Particle.FLAME, player.location, 50, 0.5, 0.5, 0.5, 0.8)
             player.world.spawnParticle(Particle.SOUL_FIRE_FLAME, player.location, 50, 0.5, 0.5, 0.5, 0.8)
-        },50)
+            cooldown(player.uniqueId)
+        },40)
     }
 
     private fun cooldown(uuid: UUID) {
