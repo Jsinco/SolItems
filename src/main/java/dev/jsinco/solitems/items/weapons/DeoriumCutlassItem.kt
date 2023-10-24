@@ -32,7 +32,7 @@ class DeoriumCutlassItem  : CustomItem {
         val item = CreateItem(
             "&#8020fb&lD&#932df9&le&#a639f7&lo&#ba46f5&lr&#cd52f4&li&#e05ff2&lu&#f36cf0&lm &#fa74eb&lC&#f477e4&lu&#ed7bdd&lt&#e77ed6&ll&#e182cf&la&#da85c8&ls&#d489c1&ls",
             mutableListOf("&#8f2ecaE&#9432cfv&#9935d3e&#9e39d8n&#a33dddt &#a840e1H&#ae44e6o&#b347ear&#b84befi&#bd4ff4z&#c252f8o&#c756fdn"),
-            mutableListOf("Right-click to summon a gravity well", "at a targeted block","","Entities nearby the well will","be damaged and weakened", "", "&cCooldown: 30 secs"),
+            mutableListOf("&#8020fb\"&#8523faL&#8926fae&#8e2af9t &#932df9t&#9730f8h&#9c33f7e &#a137f7d&#a63af6a&#aa3df5r&#af40f5k&#b444f4n&#b847f4e&#bd4af3s&#c24df2s &#c650f2c&#cb54f1o&#d057f1n&#d45af0s&#d95defu&#de61efm&#e364eee &#e767edt&#ec6aedh&#f16eece&#f571ecm&#fa74eb\"","","Right-click to summon a gravity well", "at a targeted block","","Entities nearby the well will","be damaged and weakened", "", "&cCooldown: 30 secs"),
             Material.NETHERITE_SWORD,
             mutableListOf("deoriumcutlass"),
             mutableMapOf(Enchantment.DAMAGE_ALL to 8, Enchantment.DAMAGE_UNDEAD to 8, Enchantment.LOOT_BONUS_MOBS to 5, Enchantment.SILK_TOUCH to 1, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)

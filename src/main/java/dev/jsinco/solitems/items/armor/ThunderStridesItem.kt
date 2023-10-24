@@ -29,7 +29,7 @@ class ThunderStridesItem : CustomItem {
         val item = CreateItem(
             "&#ffe800&lT&#e9e917&lh&#d3ea2e&lu&#bdec45&ln&#a7ed5c&ld&#91ee73&le&#7bef8a&lr &#67e198&lS&#56c49d&lt&#45a7a2&lr&#348aa7&li&#226cac&ld&#114fb1&le&#0032b6&ls",
             mutableListOf("&#70f096F&#60daa5a&#50c4b4s&#40aec3t &#3099d2L&#2083e1a&#106df0n&#0057ffe"),
-            mutableListOf("Crouch to activate a speed boost", "during your boost, crouch to slide","","&cCooldown: 10 secs"),
+            mutableListOf("&#ffe800\"&#f2e009S&#e6d813u&#d9d01cr&#cdc825g&#c0c02fe &#b4b838l&#a7b041i&#9ba84bk&#8ea054e &#82975dl&#758f66i&#698770g&#5c7f79h&#507782t&#436f8cn&#376795i&#2a5f9en&#1e57a8g&#114fb1\"","","Crouch to activate a speed boost", "during your boost, crouch to slide","","&cCooldown: 10 secs"),
             Material.NETHERITE_BOOTS,
             mutableListOf("thunderstrides"),
             mutableMapOf(Enchantment.PROTECTION_ENVIRONMENTAL to 7, Enchantment.PROTECTION_PROJECTILE to 7, Enchantment.PROTECTION_FALL to 8 , Enchantment.DURABILITY to 10 ,Enchantment.MENDING to 1)

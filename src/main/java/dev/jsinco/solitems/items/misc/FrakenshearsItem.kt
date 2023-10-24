@@ -15,7 +15,7 @@ class FrakenshearsItem : CustomItem {
         val item = CreateItem(
             "&#79a617&lF&#749d18&lr&#709319&la&#6b8a1a&ln&#66811b&lk&#61771c&le&#5d6e1e&ln&#58651f&ls&#535b20&lh&#4e5221&le&#4a4922&la&#453f23&lr&#403624&ls",
             mutableListOf("&#79a617S&#6a9918k&#5b8b19u&#4c7e1al&#3d701bl &#2e631cC&#31651dr&#46771eu&#5c891fs&#729b20h&#87ad20e&#9dbf21r"),
-            mutableListOf("This tool allows the user", "to break any head instantly"),
+            mutableListOf("&#79a617\"&#77a217B&#759e18o&#739a18r&#719519n &#6e9119f&#6c8d1ar&#6a891ao&#68851bm &#66811ba &#647d1cm&#62781co&#60741dn&#5e701ds&#5b6c1et&#59681ee&#57641fr&#555f1f'&#535b20s &#515720a&#4f5321m&#4d4f21b&#4b4b22i&#484722t&#464223i&#443e23o&#423a24n&#403624\"", "", "This tool allows the user", "to break any head instantly"),
             Material.SHEARS,
             mutableListOf("frakenshears"),
             mutableMapOf(Enchantment.DIG_SPEED to 6, Enchantment.DURABILITY to 7, Enchantment.MENDING to 1)

@@ -1,2 +1,6 @@
 /.idea/modules/
+/.idea/
+/.xml/
 /.gradle/
+.gradle/
+.bin/

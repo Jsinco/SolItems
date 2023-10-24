@@ -31,7 +31,7 @@ class AutumnsHarrowerItem : CustomItem {
         val item = CreateItem(
             "&#cd3c33&lA&#d2452e&lu&#d64d2a&lt&#db5625&lu&#e05e21&lm&#e4671c&ln&#e96f18&l'&#ee7813&ls &#f18010&lH&#f2880f&la&#f4900e&lr&#f5980d&lr&#f79f0c&lo&#f8a70a&lw&#faaf09&le&#fbb708&lr",
             mutableListOf("&#e95e10F&#eb670fu&#ed700el&#ee790el &#f0820dH&#f28b0ca&#f4930br&#f69c0av&#f7a50ae&#f9ae09s&#fbb708t"),
-            mutableListOf("Breaking crops with this hoe", "will occasionally yield a", "surplus amount of drops"),
+            mutableListOf("&#cd3c33\"&#cf4032L&#d04430e&#d2482ft &#d34c2dr&#d5512ci&#d6552ac&#d85929h&#d95d28e&#db6126s &#dc6525f&#de6923a&#df6d22l&#e17120l &#e2751fl&#e47a1ei&#e67e1ck&#e7821be &#e98619a&#ea8a18u&#ec8e16t&#ed9215u&#ef9613m&#f09a12n &#f29e11l&#f3a30fe&#f5a70ea&#f6ab0cv&#f8af0be&#f9b309s&#fbb708\"","","Breaking crops with this hoe", "will occasionally yield a", "surplus amount of drops"),
             Material.NETHERITE_HOE,
             mutableListOf("autumnharrower"),
             mutableMapOf(Enchantment.MENDING to 1, Enchantment.DURABILITY to 10, Enchantment.LOOT_BONUS_BLOCKS to 5, Enchantment.DIG_SPEED to 7)

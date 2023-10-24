@@ -53,7 +53,7 @@ class WitchsBrewItem : CustomItem {
         val item = CreateItem(
             "&#320342&lW&#541042&li&#761d43&lt&#982a43&lc&#ba3744&lh&#dc4444&l'&#cb434c&ls &#ba4354&lB&#a9425b&lr&#984263&le&#87416b&lw",
             mutableListOf("&#dc4444F&#c4434fi&#ab425an&#934165e &#8b4372A&#94477fg&#9d4c8de&#a6509ad"),
-            mutableListOf("This potion came from the workshop", "of a witch. It's recommended to", "not drink it","","&cCooldown: 20 secs"),
+            mutableListOf("&#320342\"&#370745A &#3d0b47p&#420f4ao&#47134ct&#4d164fi&#521a51o&#571e54n&#5d2257'&#622659s &#672a5cg&#6c2e5ea&#723261m&#773563b&#7c3966l&#823d68e&#87416b\"","","This potion came from the workshop", "of a witch. It's recommended to", "not drink it","","&cCooldown: 20 secs"),
             Material.POTION,
             mutableListOf("witchsbrew"),
             mutableMapOf(Enchantment.MENDING to 1, Enchantment.KNOCKBACK to 4)
