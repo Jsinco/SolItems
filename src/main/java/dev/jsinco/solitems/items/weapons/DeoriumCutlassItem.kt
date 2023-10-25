@@ -58,8 +58,9 @@ class DeoriumCutlassItem  : CustomItem {
     private fun createPullVoid(location: Location, p: Player) {
         val points = 50
         val step = 60
-        val armorStand = location.world.spawnEntity(location, EntityType.ARMOR_STAND) as ArmorStand
+        val armorStand = location.world.spawnEntity(p.location.add(0.0,350.0,0.0), EntityType.ARMOR_STAND) as ArmorStand
         armorStand.isVisible = false
+        armorStand.teleport(location)
         armorStand.isInvulnerable = false
         armorStand.isSmall = true
         val repeatable = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, {
@@ -94,7 +95,7 @@ class DeoriumCutlassItem  : CustomItem {
     }
 
 
-    fun cooldownPlayer(uuid: UUID) {
+    private fun cooldownPlayer(uuid: UUID) {
         cooldown.add(uuid)
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             cooldown.remove(uuid)

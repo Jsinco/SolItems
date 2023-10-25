@@ -10,6 +10,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.util.Vector
@@ -86,6 +87,11 @@ class ThunderStridesItem : CustomItem {
     }
 
     private fun slideAbility(player: Player) {
+        if (player.hasMetadata("thunderstrides")) return
         player.velocity = directions[player.uniqueId]?.multiply(7.5)?.setY(-0.1) ?: return
+        player.setMetadata("thunderstrides", FixedMetadataValue(plugin, true))
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
+            player.removeMetadata("thunderstrides", plugin)
+        }, 4)
     }
 }

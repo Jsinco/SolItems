@@ -37,7 +37,7 @@ class SpellboundShattererItem : CustomItem {
             mutableListOf("&#760075\"&#80086cM&#8a0f62o&#941759u&#9f1f50n&#a92647t&#b32e3da&#bd3634i&#c73d2bn&#d14521s &#dc4d18t&#e6540fr&#f05c06e&#ee6201m&#df6601b&#d06901l&#c16d01e &#b37101b&#a47501e&#957800l&#877c00o&#788000w&#698400.&#5a8700.&#4c8b00.&#3d8f00\"","","Breaking blocks with this pickaxe","grants the chance to shatter" ,"nearby blocks in a 5x5 radius"),
             Material.NETHERITE_PICKAXE,
             mutableListOf("spellboundshatterer"),
-            mutableMapOf(Enchantment.DIG_SPEED to 8, Enchantment.LOOT_BONUS_BLOCKS to 5, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
+            mutableMapOf(Enchantment.DIG_SPEED to 8, Enchantment.SILK_TOUCH to 1, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
         )
         item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
         return Pair("spellboundshatterer", item.createItem())

@@ -48,7 +48,7 @@ class AutumnsMattockItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        val random = if (player.scoreboardTags.contains("solitems.debug")) 0 else Random.nextInt(200)
+        val random = if (player.scoreboardTags.contains("solitems.debug")) 0 else Random.nextInt(500)
         if (random > 5) return false
         when (type) {
             Ability.BREAK_BLOCK -> {
