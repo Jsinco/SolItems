@@ -21,7 +21,7 @@ class HallomaresSwapTeamsItem : CustomItem {
     private val msg = Util.colorcode("""
                 ${Util.prefix} In chat, type the new name of your team. Options are:
                 &7- &#220000d&#2d0101a&#370202r&#420303k_&#4f0303i&#5f0202m&#700101p&#800000s
-                &7- &#fb472fs&#fb4f2eu&#fb572en&#fc5f2dl&#fc672ci&#fc6f2bt_&#fc772bs&#fc7f2ap&#fc8729i&#fd8f28r&#fd9728i&#fd9f27t&#fda726s
+                &7- &#fb3a20s&#fb4b21u&#fc5c22n&#fc6c23l&#fc7d24i&#fd8e25t&#fd9f26_&#fca225s&#fa9722p&#f88d1fi&#f7821cr&#f57819i&#f36d16t&#f16313s
                 &7- &#c1b2ffs&#b8adf4a&#b0a9e9p&#a7a4dep&#9ea0d4h&#959bc9i&#8d97ber&#8492b3e_&#8b98b7s&#929fbch&#99a5c0a&#a0abc4d&#a7b1c8o&#aeb8cdw&#b5bed1s
                 &7- &#5c3170w&#663e76o&#704b7dn&#795883d&#836589e&#767085r_&#697c81w&#5c877ci&#4f9278t&#5da67ec&#6cba83h&#7acd89e&#88e18es
                 &fType &c&lcancel &fto cancel
