@@ -92,6 +92,6 @@ class ThunderStridesItem : CustomItem {
         player.setMetadata("thunderstrides", FixedMetadataValue(plugin, true))
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             player.removeMetadata("thunderstrides", plugin)
-        }, 4)
+        }, 10)
     }
 }

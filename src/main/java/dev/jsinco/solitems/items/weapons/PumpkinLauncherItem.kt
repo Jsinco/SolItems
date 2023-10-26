@@ -10,6 +10,7 @@ import org.bukkit.entity.*
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.function.Consumer
@@ -33,24 +34,29 @@ class PumpkinLauncherItem : CustomItem {
         return Pair("pumpkinlauncher", item.createItem())
     }
 
-    override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        val projectileLaunch: ProjectileLaunchEvent? = event as? ProjectileLaunchEvent
-        val projectileHit: ProjectileHitEvent? = event as? ProjectileHitEvent
 
+    override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
         when (type) {
             Ability.PROJECTILE_LAUNCH -> {
-                replaceProjectile(projectileLaunch!!.entity)
+                event as ProjectileLaunchEvent
+                replaceProjectile(event.entity, event)
             }
             Ability.PROJECTILE_LAND -> {
-                jackOLand(projectileHit!!.entity)
+                event as ProjectileHitEvent
+                jackOLand(event.entity, player)
             }
             else -> return false
         }
         return true
     }
 
-    private fun replaceProjectile(projectile: Projectile) {
+    private fun replaceProjectile(projectile: Projectile, event: ProjectileLaunchEvent) {
         val player = projectile.shooter as? Player ?: return
+        if (player.hasMetadata("pumpkinLauncher")) {
+            event.isCancelled = true
+            return
+        }
+        player.setMetadata("pumpkinLauncher", FixedMetadataValue(plugin, true))
 
         val armorStand: ArmorStand = projectile.world.spawnEntity(projectile.location, EntityType.ARMOR_STAND) as ArmorStand
         armorStand.equipment.helmet = ItemStack(Material.JACK_O_LANTERN);
@@ -85,20 +91,21 @@ class PumpkinLauncherItem : CustomItem {
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             if (!projectile.isDead) {
-                jackOLand(projectile);
+                jackOLand(projectile, player);
             }
         }, 100L);
     }
 
-    private fun jackOLand(projectile: Projectile) {
+    private fun jackOLand(projectile: Projectile, player: Player) {
         projectile.getNearbyEntities(4.0, 4.0, 4.0).forEach(Consumer { entity: Entity ->
             if (entity.persistentDataContainer.has(NamespacedKey(plugin, "pumpkinlauncher"), PersistentDataType.SHORT)) {
                 entity.remove()
             }
         })
 
-        projectile.world.createExplosion(projectile.location, 5f, false, false)
+        projectile.world.createExplosion(projectile.location, 2f, false, false, player)
         projectile.remove()
+        player.removeMetadata("pumpkinLauncher", plugin)
     }
 
 

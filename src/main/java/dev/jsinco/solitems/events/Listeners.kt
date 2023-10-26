@@ -91,7 +91,7 @@ class Listeners(val plugin: SolItems) : Listener {
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
         val dataContainers: List<PersistentDataContainer> = Util.getAllEquipmentNBT(player)
-        val ability: Ability = if (event.action.isLeftClick) Ability.LEFT_CLICK else Ability.RIGHT_CLICK
+        val ability: Ability = if (event.action.isLeftClick) Ability.LEFT_CLICK else if (event.action.isRightClick) Ability.RIGHT_CLICK else Ability.GENERIC_INTERACT
 
         for (customItem in ItemManager.customItems) {
             for (dataContainer in dataContainers) {

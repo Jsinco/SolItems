@@ -6,6 +6,7 @@ public enum Ability {
     CROSSBOW_LOAD,  // Mapped
     RIGHT_CLICK, // Mapped, full equipment support
     LEFT_CLICK, // Mapped, full equipment support
+    GENERIC_INTERACT, // Mapped, full equipment support
     BREAK_BLOCK, // Mapped
     PLACE_BLOCK, // Mapped
     ENTITY_DAMAGE, // Mapped
