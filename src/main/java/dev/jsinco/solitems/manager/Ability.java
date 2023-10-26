@@ -1,6 +1,8 @@
 package dev.jsinco.solitems.manager;
 
 public enum Ability {
+    // TODO: Add Runnable types
+
     PROJECTILE_LAUNCH, // Mapped, Offhand supported
     PROJECTILE_LAND, // Mapped, Converted to persistent data container
     CROSSBOW_LOAD,  // Mapped
@@ -22,5 +24,6 @@ public enum Ability {
     CHAT,
     MOVE,
     CONSUME_ITEM,
-    ENTITY_CHANGE_BLOCK
+    ENTITY_CHANGE_BLOCK,
+    POTION_EFFECT
 }

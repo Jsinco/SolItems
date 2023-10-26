@@ -71,6 +71,7 @@ class ItemManager(val plugin: SolItems) {
         addCustomItemClass(RibbonBootsItem())
         addCustomItemClass(RubyPinionsItem())
         addCustomItemClass(StarweaveAegisItem())
+        addCustomItemClass(WonderBeanieItem())
         // Magical
         addCustomItemClass(ParallelParadigmWandItem())
 

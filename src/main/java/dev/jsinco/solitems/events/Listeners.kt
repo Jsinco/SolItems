@@ -346,4 +346,19 @@ class Listeners(val plugin: SolItems) : Listener {
         }
     }
 
+    @EventHandler
+    fun onEntityPotionEffect(event: EntityPotionEffectEvent) {
+        val player = event.entity as? Player ?: return
+
+        val data = Util.getAllEquipmentNBT(player)
+
+        for (customItem in ItemManager.customItems) {
+            for (itemData in data) {
+                if (!itemData.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) continue
+
+                customItem.value.executeAbilities(Ability.POTION_EFFECT, player, event)
+                break
+            }
+        }
+    }
 }
