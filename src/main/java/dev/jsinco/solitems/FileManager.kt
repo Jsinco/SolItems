@@ -6,14 +6,19 @@ import java.io.IOException
 import java.nio.file.Files
 
 class FileManager(fileName: String) {
-    val plugin: SolItems = SolItems.getPlugin()
+
 
     var file: File = File(plugin.dataFolder, fileName)
     private val yamlConfiguration: YamlConfiguration = YamlConfiguration.loadConfiguration(file)
 
-    fun generateFolder(folder: String) {
-        if (!File(plugin.dataFolder, folder).exists()) {
-            File(plugin.dataFolder, folder).mkdir()
+    companion object {
+        val plugin: SolItems = SolItems.getPlugin()
+
+        @JvmStatic
+        fun generateFolder(folder: String) {
+            if (!File(plugin.dataFolder, folder).exists()) {
+                File(plugin.dataFolder, folder).mkdir()
+            }
         }
     }
 

@@ -52,15 +52,13 @@ public class ItemManager {
             classes.addAll(findClasses(packagee));
         }
 
-        for (Class aClass : classes) {
-            String className = aClass.getName();
+        for (Class clazz : classes) {
             try {
-                final Class<?> clazzy = Class.forName(className);
-                if (CustomItem.class.isAssignableFrom(clazzy)) {
-                    CustomItem item = (CustomItem) clazzy.getDeclaredConstructor().newInstance();
+                if (CustomItem.class.isAssignableFrom(clazz)) {
+                    CustomItem item = (CustomItem) clazz.getDeclaredConstructor().newInstance();
                     customItems.put(item.createItem().component1(), item);
                 }
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
@@ -76,7 +74,6 @@ public class ItemManager {
      * Credit: <a href="https://www.spigotmc.org/threads/register-all-listeners-in-package.399219/">...</a>
      */
     private Set<Class> findClasses(String packageName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
-        JavaPlugin plugin = (JavaPlugin) Bukkit.getServer().getPluginManager().getPlugin(this.plugin.getName());
         Method getFileMethod = JavaPlugin.class.getDeclaredMethod("getFile");
         getFileMethod.setAccessible(true);
         File file = (File) getFileMethod.invoke(plugin);

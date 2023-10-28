@@ -21,12 +21,11 @@ public final class SolItems extends JavaPlugin {
         plugin = this;
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-        Util.INSTANCE.loadUtils();
+        Util.loadUtils();
 
         PassiveListeners passiveListeners = new PassiveListeners(this);
-        FileManager fileManager = new FileManager("blank.txt");
 
-        fileManager.generateFolder("saves");
+        FileManager.generateFolder("saves");
         ItemManager itemManager = new ItemManager(this);
         try {
             itemManager.registerItems();

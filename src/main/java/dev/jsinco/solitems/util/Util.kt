@@ -18,6 +18,7 @@ object Util {
     const val WITH_DELIMITER = "((?<=%1\$s)|(?=%1\$s))"
     val plugin: SolItems = SolItems.getPlugin()
 
+    @JvmStatic
     fun loadUtils() {
         prefix = colorcode(plugin.config.getString("prefix")!!)
     }
