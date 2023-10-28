@@ -4,6 +4,7 @@ import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
@@ -42,6 +43,7 @@ class WonderBeanieItem : CustomItem {
 
                 event as EntityPotionEffectEvent
                 val effect = event.newEffect ?: return false
+                if (event.cause == EntityPotionEffectEvent.Cause.COMMAND) return false
                 event.isCancelled = true
 
                 recursionProtection.add(player.uniqueId)

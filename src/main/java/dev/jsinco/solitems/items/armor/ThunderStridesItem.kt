@@ -5,7 +5,10 @@ import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
 import org.bukkit.Bukkit
+import org.bukkit.Color
 import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.Particle.DustOptions
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerMoveEvent
@@ -28,9 +31,9 @@ class ThunderStridesItem : CustomItem {
 
     override fun createItem(): Pair<String, ItemStack> {
         val item = CreateItem(
-            "&#ffe800&lT&#e9e917&lh&#d3ea2e&lu&#bdec45&ln&#a7ed5c&ld&#91ee73&le&#7bef8a&lr &#67e198&lS&#56c49d&lt&#45a7a2&lr&#348aa7&li&#226cac&ld&#114fb1&le&#0032b6&ls",
-            mutableListOf("&#70f096F&#60daa5a&#50c4b4s&#40aec3t &#3099d2L&#2083e1a&#106df0n&#0057ffe"),
-            mutableListOf("&#ffe800\"&#f2e009S&#e6d813u&#d9d01cr&#cdc825g&#c0c02fe &#b4b838l&#a7b041i&#9ba84bk&#8ea054e &#82975dl&#758f66i&#698770g&#5c7f79h&#507782t&#436f8cn&#376795i&#2a5f9en&#1e57a8g&#114fb1\"","","Crouch to activate a speed boost", "during your boost, crouch to slide","","&cCooldown: 10 secs"),
+            "&#fbe734&lT&#fbe344&lh&#fcde53&lu&#fcda63&ln&#fcd573&ld&#fdd182&le&#fdcc92&lr &#f0c1a2&lS&#d6aeb1&lt&#bc9bc0&lr&#a289cf&li&#8876df&ld&#6e64ee&le&#5451fd&ls",
+            mutableListOf("&#fbe734F&#fce835a&#fde937s&#d3cb70t &#949fc4L&#677afda&#5d66fdn&#5451fde"),
+            mutableListOf("&#fbe734\"&#fbe43fS&#fbe149u&#fcde54r&#fcdb5fg&#fcd86ae &#fcd574l&#fcd27fi&#fdcf8ak&#fdcc95e &#f4c49fL&#e2b7aai&#d1aab4g&#bf9dbeh&#ad91c9t&#9b84d3n&#8977dei&#786ae8n&#665ef3g&#5451fd\"","","Crouch to activate a speed boost", "during your boost, crouch to slide","","&cCooldown: 16 secs"),
             Material.NETHERITE_BOOTS,
             mutableListOf("thunderstrides"),
             mutableMapOf(Enchantment.PROTECTION_ENVIRONMENTAL to 7, Enchantment.PROTECTION_PROJECTILE to 7, Enchantment.PROTECTION_FALL to 8 , Enchantment.DURABILITY to 10 ,Enchantment.MENDING to 1)
@@ -39,12 +42,12 @@ class ThunderStridesItem : CustomItem {
         return Pair("thunderstrides", item.createItem())
     }
 
-    // TODO: Add particles
+
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
 
         when (type) {
-            Ability.PLAYER_CROUCH ->{
+            Ability.PLAYER_CROUCH -> {
                 if (player.isSneaking || cooldown.contains(player.uniqueId) || player.isFlying) return false
 
                 if (activeFastLane.contains(player.uniqueId)) {
@@ -68,16 +71,21 @@ class ThunderStridesItem : CustomItem {
         cooldown.add(uuid)
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             cooldown.remove(uuid)
-        }, 200L)
+        }, 320L)
     }
 
 
     private fun startFastLane(player: Player) {
         player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 140, 2, false, false, false))
         activeFastLane.add(player.uniqueId)
+        val particles = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, {
+            player.world.spawnParticle(Particle.REDSTONE, player.location, 1, 0.2, 0.0, 0.2, 0.1, DustOptions(Color.fromRGB(251, 216, 90), 0.9f))
+            player.world.spawnParticle(Particle.REDSTONE, player.location, 1, 0.2, 0.0, 0.2, 0.1, DustOptions(Color.fromRGB(106, 129, 253), 0.9f))
+        }, 0L, 1L)
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             stopFastLane(player)
+            Bukkit.getScheduler().cancelTask(particles)
         }, 140L)
     }
 
@@ -88,10 +96,13 @@ class ThunderStridesItem : CustomItem {
 
     private fun slideAbility(player: Player) {
         if (player.hasMetadata("thunderstrides")) return
+
         player.velocity = directions[player.uniqueId]?.multiply(7.5)?.setY(-0.1) ?: return
+        player.world.spawnParticle(Particle.WAX_OFF, player.location, 6, 0.5, 0.5, 0.5, 0.3)
+
         player.setMetadata("thunderstrides", FixedMetadataValue(plugin, true))
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             player.removeMetadata("thunderstrides", plugin)
-        }, 10)
+        }, 17)
     }
 }

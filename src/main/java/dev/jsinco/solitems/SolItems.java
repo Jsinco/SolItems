@@ -23,12 +23,17 @@ public final class SolItems extends JavaPlugin {
         saveDefaultConfig();
         Util.INSTANCE.loadUtils();
 
-        ItemManager itemManager = new ItemManager(this);
         PassiveListeners passiveListeners = new PassiveListeners(this);
         FileManager fileManager = new FileManager("blank.txt");
 
         fileManager.generateFolder("saves");
-        itemManager.initializeCandleClasses();
+        ItemManager itemManager = new ItemManager(this);
+        try {
+            itemManager.registerItems();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         passiveListeners.startMainRunnable();
 
         GlowManager.initGlowTeams();

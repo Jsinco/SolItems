@@ -3,6 +3,7 @@ version: '${version}'
 main: dev.jsinco.solitems.SolItems
 api-version: '1.20'
 softdepend: [PlaceHolderAPI, EvenMoreFish] # Softdepending EMF to register listeners after
+author: 'Jsinco'
 permissions:
   solitems.command.give:
     description: Gives a player a SolItem

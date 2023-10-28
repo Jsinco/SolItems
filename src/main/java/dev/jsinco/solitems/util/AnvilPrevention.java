@@ -34,8 +34,8 @@ public class AnvilPrevention implements Listener {
 
         if (meta.getPersistentDataContainer().has(new NamespacedKey(plugin, "forged"), PersistentDataType.SHORT)) {
             cancelEvent = true;
-        } else { // TODO: Convert to JVM Static?
-            for (String key : ItemManager.Companion.getCustomItems().keySet()) {
+        } else {
+            for (String key : ItemManager.customItems.keySet()) {
                 if (meta.getPersistentDataContainer().has(new NamespacedKey(plugin, key), PersistentDataType.SHORT)) {
                     cancelEvent = true;
                     break;
