@@ -1,6 +1,6 @@
 package dev.jsinco.solitems.items.misc
 
-import dev.jsinco.solitems.FileManager
+import dev.jsinco.solitems.manager.FileManager
 import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability

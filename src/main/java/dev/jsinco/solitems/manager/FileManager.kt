@@ -1,5 +1,6 @@
-package dev.jsinco.solitems
+package dev.jsinco.solitems.manager
 
+import dev.jsinco.solitems.SolItems
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException

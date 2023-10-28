@@ -1,8 +1,7 @@
 package dev.jsinco.solitems.commands
 
-import dev.jsinco.solitems.FileManager
+import dev.jsinco.solitems.manager.FileManager
 import dev.jsinco.solitems.SolItems
-import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player

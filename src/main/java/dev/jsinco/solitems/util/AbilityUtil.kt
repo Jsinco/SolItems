@@ -1,6 +1,6 @@
 package dev.jsinco.solitems.util
 
-import dev.jsinco.solitems.FileManager
+import dev.jsinco.solitems.manager.FileManager
 import dev.jsinco.solitems.SolItems
 import org.bukkit.*
 import org.bukkit.Particle.DustOptions

@@ -1,12 +1,11 @@
 package dev.jsinco.solitems.items.misc
 
 import com.iridium.iridiumcolorapi.IridiumColorAPI
-import dev.jsinco.solitems.FileManager
+import dev.jsinco.solitems.manager.FileManager
 import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.Util
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
@@ -74,20 +73,12 @@ class StellarStarItem : CustomItem {
             toolEnchants[stellarFile.getStringList("$randomTool.Enchants")[i]] = stellarFile.getIntegerList("$randomTool.Levels")[i]
         }
         // Create item TODO: move to separate function
-
+        // FIXME
         val numOfEnchants = Random.nextInt(3, toolEnchants.size)
         val item = ItemStack(Material.valueOf("DIAMOND_$randomTool"))
         val meta = item.itemMeta
 
         for (i in 0 until numOfEnchants) {
-            if (meta.hasEnchant(Enchantment.SILK_TOUCH) && meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
-                if (Random.nextBoolean()) { // FIXME
-                    meta.removeEnchant(Enchantment.SILK_TOUCH)
-                } else {
-                    meta.removeEnchant(Enchantment.LOOT_BONUS_BLOCKS)
-                }
-            }
-
             var enchant: Enchantment = Enchantment.getByKey(NamespacedKey.minecraft(toolEnchants.keys.random()))!!
 
             while (meta.hasEnchant(enchant)) {
@@ -96,6 +87,14 @@ class StellarStarItem : CustomItem {
             //TODO: Works?
             val enchantString = enchant.key.toString().split(":")[1]
             meta.addEnchant(enchant, toolEnchants[enchantString]!!, true)
+        }
+
+        if (meta.hasEnchant(Enchantment.SILK_TOUCH) && meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
+            if (Random.nextBoolean()) { // FIXME
+                meta.removeEnchant(Enchantment.SILK_TOUCH)
+            } else {
+                meta.removeEnchant(Enchantment.LOOT_BONUS_BLOCKS)
+            }
         }
         item.itemMeta = meta
         return item

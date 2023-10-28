@@ -5,6 +5,7 @@ import dev.jsinco.solitems.events.Listeners;
 import dev.jsinco.solitems.events.PassiveListeners;
 import dev.jsinco.solitems.hooks.GlowColorPlaceholder;
 import dev.jsinco.solitems.hooks.PAPIManager;
+import dev.jsinco.solitems.manager.FileManager;
 import dev.jsinco.solitems.manager.GlowManager;
 import dev.jsinco.solitems.manager.ItemManager;
 import dev.jsinco.solitems.util.AnvilPrevention;
