@@ -2,7 +2,6 @@ package dev.jsinco.solitems.manager;
 
 import com.google.common.reflect.ClassPath;
 import dev.jsinco.solitems.SolItems;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -17,12 +16,14 @@ import java.util.stream.Collectors;
 public class ItemManager {
 
     private final SolItems plugin;
+
     /**
      * Map of all SolItems Custom Items
      * Key: Custom Item NBT Key
      * Value: Custom Item Class
      */
     public final static Map<String, CustomItem> customItems = new HashMap<>();
+
 
     /**
      * List of all packages to search for Custom Items

@@ -6,7 +6,6 @@ import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.ItemManager
 import dev.jsinco.solitems.util.Util
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
-import io.papermc.paper.event.entity.EntityMoveEvent
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player

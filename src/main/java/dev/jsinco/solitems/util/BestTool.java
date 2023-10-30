@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// FIXME: God, please fix this
 public class BestTool {
 
     public static final List<Material> AXE = new ArrayList<>();
