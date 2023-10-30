@@ -32,7 +32,7 @@ class HallomaresSwapTeamsItem : CustomItem {
     override fun createItem(): Pair<String, ItemStack> {
         item = createBasicItem(
             "&#c46bfb&lS&#cb70e6&lw&#d275d2&la&#d97abd&lp &#e17fa9&lT&#e88394&le&#ef887f&la&#f68d6b&lm&#fd9256&ls",
-            listOf("&7Right click to use!"),
+            listOf("&7Right click to use!", "","&c&oSwapping teams will reset your points!"),
             Material.PAPER,
             listOf("hallomareswapteams"),
             true
@@ -84,6 +84,7 @@ class HallomaresSwapTeamsItem : CustomItem {
             player.persistentDataContainer.remove(NamespacedKey(plugin, "hallomareswapteams"))
             Bukkit.getScheduler().runTask(plugin, Runnable { // Asynchronous so we have to sync it :(
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "hallomares setteam " + newTeam + " " + player.name)
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "hallomares points set ${player.name} 0")
             })
         } else {
             player.sendMessage(msg)
