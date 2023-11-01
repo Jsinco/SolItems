@@ -9,7 +9,6 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
-import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -46,13 +45,13 @@ class HallomaresSwapTeamsItem : CustomItem {
                 val item = player.inventory.itemInMainHand
                 if (!item.itemMeta.persistentDataContainer.has(NamespacedKey(plugin, "hallomareswapteams"), PersistentDataType.SHORT)) return false
                 item.amount -= 1
-                flagPlayer(player)
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ecrates key give ${player.name} hallomares 1")
             }
-            Ability.CHAT -> {
-                val chatEvent = event as AsyncPlayerChatEvent
-                newTeamPlayer(chatEvent.message, player)
-                event.isCancelled = true
-            }
+            //Ability.CHAT -> {
+            //    val chatEvent = event as AsyncPlayerChatEvent
+            //    newTeamPlayer(chatEvent.message, player)
+            //    event.isCancelled = true
+            //}
             else -> return false
         }
         return true
