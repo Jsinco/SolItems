@@ -55,6 +55,7 @@ class AutumnsHarrowerItem : CustomItem {
 
 
     private fun fullHarvest(block: Block, drops: Collection<ItemStack>) {
+        if (drops.isEmpty()) return
         val item = AbilityUtil.findMostCommonItem(drops)
 
         if (crops.containsKey(item.type)) {

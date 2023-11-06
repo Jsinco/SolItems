@@ -58,7 +58,7 @@ class PumpkinLauncherItem : CustomItem {
         }
         player.setMetadata("pumpkinLauncher", FixedMetadataValue(plugin, true))
 
-        val armorStand: ArmorStand = projectile.world.spawnEntity(projectile.location.add(0.0,350.0,0.0), EntityType.ARMOR_STAND) as ArmorStand
+        val armorStand: ArmorStand = projectile.world.spawnEntity(projectile.location, EntityType.ARMOR_STAND) as ArmorStand
         armorStand.equipment.helmet = ItemStack(Material.JACK_O_LANTERN);
         armorStand.isInvisible = true
         armorStand.isInvulnerable = false

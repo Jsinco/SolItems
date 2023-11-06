@@ -5,19 +5,19 @@ import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
 import dev.jsinco.solitems.util.AbilityUtil
-import dev.jsinco.solitems.util.Util
 import org.bukkit.*
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
-import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.util.Vector
-import java.util.UUID
+import java.util.*
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -35,7 +35,7 @@ class DeoriumCutlassItem  : CustomItem {
             mutableListOf("&#8020fb\"&#8523faL&#8926fae&#8e2af9t &#932df9t&#9730f8h&#9c33f7e &#a137f7d&#a63af6a&#aa3df5r&#af40f5k&#b444f4n&#b847f4e&#bd4af3s&#c24df2s &#c650f2c&#cb54f1o&#d057f1n&#d45af0s&#d95defu&#de61efm&#e364eee &#e767edt&#ec6aedh&#f16eece&#f571ecm&#fa74eb\"","","Right-click to summon a gravity well", "at a targeted block","","Entities nearby the well will","be damaged and weakened", "", "&cCooldown: 30 secs"),
             Material.NETHERITE_SWORD,
             mutableListOf("deoriumcutlass"),
-            mutableMapOf(Enchantment.DAMAGE_ALL to 8, Enchantment.DAMAGE_UNDEAD to 8, Enchantment.LOOT_BONUS_MOBS to 5, Enchantment.SILK_TOUCH to 1, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
+            mutableMapOf(Enchantment.DAMAGE_ALL to 8, Enchantment.DAMAGE_UNDEAD to 8, Enchantment.LOOT_BONUS_MOBS to 5, Enchantment.SWEEPING_EDGE to 4, Enchantment.DURABILITY to 10, Enchantment.MENDING to 1)
         )
         item.tier = "&#c46bfb&lH&#c86eee&la&#cd71e2&ll&#d174d5&ll&#d677c8&lo&#da7abc&lm&#de7daf&la&#e380a2&lr&#e78395&le&#eb8689&ls &#f0897c&l2&#f48c6f&l0&#f98f63&l2&#fd9256&l3"
         return Pair("deoriumcutlass", item.createItem())
@@ -68,12 +68,15 @@ class DeoriumCutlassItem  : CustomItem {
                 if (entity.type == EntityType.ARMOR_STAND || entity.type == EntityType.PLAYER || AbilityUtil.noDamagePermission(p, entity)) continue
                 val direction: Vector = armorStand.location.subtract(entity.location).toVector()
                 val distance: Double = entity.location.distance(armorStand.location)
-                entity.velocity = direction.normalize().multiply(distance / 20)
 
                 if (distance <= 2.5 && entity is LivingEntity) {
-                    entity.damage(5.0)
+                    entity.damage(5.0, p)
+                    entity.velocity = Vector(0, 0, 0)
+
                     entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 1, false, false, false))
                 }
+
+                entity.velocity = direction.normalize().multiply(distance / 20)
                 entity.world.spawnParticle(Particle.REDSTONE, entity.location, 5, 0.6, 0.6, 0.6, 0.8,
                     Particle.DustOptions(Color.PURPLE, 1f)
                 )

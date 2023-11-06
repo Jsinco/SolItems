@@ -335,6 +335,8 @@ class Listeners(val plugin: SolItems) : Listener {
         val entity = event.entity
 
         val data: PersistentDataContainer = entity.persistentDataContainer
+
+        if (Bukkit.getOnlinePlayers().isEmpty()) return
         val player = Bukkit.getOnlinePlayers().stream().toList()[0]
 
         for (customItem in ItemManager.customItems) {

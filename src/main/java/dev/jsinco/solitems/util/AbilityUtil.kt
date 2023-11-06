@@ -77,6 +77,9 @@ object AbilityUtil {
             .key
     }
 
+    fun isOnGround(entity: Entity): Boolean {
+        return !entity.location.add(0.0,-0.1, 0.0).block.type.isAir
+    }
 
 
     fun breakRelativeBlock(block: Block, player: Player, particle: Particle?, type: String, limiterInitial: Int) {
@@ -136,7 +139,7 @@ object AbilityUtil {
         player.removeMetadata("BlockAbility", plugin)
     }
 
-    // Stellaris' Set
+    // Usage: Stellaris' Set
     fun pinataAbility(block: Block) {
         if (Random().nextInt(32000) >= 14) return
 

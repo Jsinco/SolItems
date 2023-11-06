@@ -4,6 +4,7 @@ import dev.jsinco.solitems.SolItems
 import dev.jsinco.solitems.items.CreateItem
 import dev.jsinco.solitems.manager.Ability
 import dev.jsinco.solitems.manager.CustomItem
+import dev.jsinco.solitems.util.AbilityUtil.isOnGround
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Material
@@ -17,7 +18,7 @@ import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.util.Vector
-import java.util.UUID
+import java.util.*
 
 class ThunderStridesItem : CustomItem {
 
@@ -48,9 +49,9 @@ class ThunderStridesItem : CustomItem {
 
         when (type) {
             Ability.PLAYER_CROUCH -> {
-                if (player.isSneaking || cooldown.contains(player.uniqueId) || player.isFlying) return false
+                if (player.isSneaking || cooldown.contains(player.uniqueId)) return false
 
-                if (activeFastLane.contains(player.uniqueId)) {
+                if (activeFastLane.contains(player.uniqueId) && isOnGround(player)) {
                     slideAbility(player)
                 } else if (!activeFastLane.contains(player.uniqueId)) {
                     startFastLane(player)
