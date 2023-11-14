@@ -337,12 +337,12 @@ class Listeners(val plugin: SolItems) : Listener {
         val data: PersistentDataContainer = entity.persistentDataContainer
 
         if (Bukkit.getOnlinePlayers().isEmpty()) return
-        val player = Bukkit.getOnlinePlayers().stream().toList()[0]
+        val player = Bukkit.getOnlinePlayers().stream().toList().random()
 
         for (customItem in ItemManager.customItems) {
             if (!data.has(NamespacedKey(plugin, customItem.key), PersistentDataType.SHORT)) continue
             val customItemClass = customItem.value
-            customItemClass.executeAbilities(Ability.ENTITY_CHANGE_BLOCK, player, event)
+            customItemClass.executeAbilities(Ability.ENTITY_CHANGE_BLOCK, null as Player, event)
             break
         }
     }

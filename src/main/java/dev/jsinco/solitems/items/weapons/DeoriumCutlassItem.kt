@@ -11,8 +11,6 @@ import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -74,12 +72,11 @@ class DeoriumCutlassItem  : CustomItem {
                     entity.velocity = Vector(0, 0, 0)
 
                     entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 1, false, false, false))
+                    entity.world.spawnParticle(Particle.REDSTONE, entity.location, 5, 0.6, 0.6, 0.6, 0.8,
+                        Particle.DustOptions(Color.PURPLE, 1f)
+                    )
                 }
-
                 entity.velocity = direction.normalize().multiply(distance / 20)
-                entity.world.spawnParticle(Particle.REDSTONE, entity.location, 5, 0.6, 0.6, 0.6, 0.8,
-                    Particle.DustOptions(Color.PURPLE, 1f)
-                )
             }
 
             for (i in 0 until points) {

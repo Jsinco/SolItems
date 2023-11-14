@@ -34,19 +34,22 @@ class LoreEditTagItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        val chatMessageEvent: AsyncPlayerChatEvent? = event as? AsyncPlayerChatEvent
+        //val chatMessageEvent: AsyncPlayerChatEvent? = event as? AsyncPlayerChatEvent
 
         when (type) {
             Ability.RIGHT_CLICK -> {
-                if (player.inventory.itemInMainHand.itemMeta.persistentDataContainer.has(NamespacedKey(RenameTagItem.plugin, "newloretag"), PersistentDataType.SHORT)) {
-                    startEditingLore(player)
-                }
+                //if (player.inventory.itemInMainHand.itemMeta.persistentDataContainer.has(NamespacedKey(RenameTagItem.plugin, "newloretag"), PersistentDataType.SHORT)) {
+                //    startEditingLore(player)
+                //}
+                player.sendMessage(Util.colorcode("${Util.prefix} Redeem by making a ticket on &#a8ff92https://discord.gg/solacemc"))
             }
-
+            /*
             Ability.CHAT -> {
                 sentMessageForLore(chatMessageEvent!!.message, player)
                 chatMessageEvent.isCancelled = true
             }
+
+             */
 
             else -> return false
         }

@@ -33,20 +33,21 @@ class RenameTagItem : CustomItem {
     }
 
     override fun executeAbilities(type: Ability, player: Player, event: Any): Boolean {
-        val chatEvent: AsyncPlayerChatEvent? = event as? AsyncPlayerChatEvent
+        //val chatEvent: AsyncPlayerChatEvent? = event as? AsyncPlayerChatEvent
 
         when (type) {
             Ability.RIGHT_CLICK -> {
-                if (player.inventory.itemInMainHand.itemMeta.persistentDataContainer.has(NamespacedKey(plugin, "renametag"), PersistentDataType.SHORT)) {
-                    startRenamingPlayer(player) // Check if the item is in the MAIN HAND, not just anywhere :P
-                }
+                //if (player.inventory.itemInMainHand.itemMeta.persistentDataContainer.has(NamespacedKey(plugin, "renametag"), PersistentDataType.SHORT)) {
+                //    startRenamingPlayer(player) // Check if the item is in the MAIN HAND, not just anywhere :P
+                //}
+                player.sendMessage(Util.colorcode("${Util.prefix} Redeem by making a ticket on &#a8ff92https://discord.gg/solacemc"))
             }
-
+            /*
             Ability.CHAT -> {
                 playerSentMessage(chatEvent!!.message, player)
                 chatEvent.isCancelled = true
             }
-
+             */
             else -> return false
         }
         return true
