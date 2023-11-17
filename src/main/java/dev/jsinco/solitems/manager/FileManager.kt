@@ -29,10 +29,7 @@ class FileManager(fileName: String) {
         try {
             if (!file.exists()) {
                 file.createNewFile()
-                returnValue = true
-            }
 
-            if (plugin.getResource(file.name) != null) {
                 val inputStream = plugin.getResource(file.name)
                 val outputStream = Files.newOutputStream(file.toPath())
                 val buffer = ByteArray(1024)

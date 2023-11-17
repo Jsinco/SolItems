@@ -37,8 +37,11 @@ public final class SolItems extends JavaPlugin {
         passiveListeners.startMainRunnable();
 
         GlowManager.initGlowTeams();
+
         getServer().getPluginManager().registerEvents(new Listeners(this), this);
         getServer().getPluginManager().registerEvents(new AnvilPrevention(this), this);
+        getServer().getPluginManager().registerEvents(new StellarDeconstructor(this), this);
+
         getCommand("solitems").setExecutor(new CommandManager(this));
         getCommand("fixjsincosmistakes").setExecutor(new FixJsincosMistakes(plugin));
 

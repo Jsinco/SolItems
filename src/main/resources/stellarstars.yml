@@ -1,3 +1,13 @@
+deconstructor-blocks:
+  '1':
+    world: 'spawn'
+    x: -149
+    y: 27
+    z: -193
+
+deconstructor-random-items:
+  - "give %player% diamond 3"
+
 valid-tools:
   - 'HELMET'
   - 'CHESTPLATE'

@@ -4,7 +4,9 @@ import dev.jsinco.solitems.SolItems
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
 import org.bukkit.scoreboard.Team
+import java.util.UUID
 
 
 object GlowManager {
@@ -19,6 +21,8 @@ object GlowManager {
 
     private val board = Bukkit.getScoreboardManager().mainScoreboard
     val teams: MutableList<Team> = mutableListOf()
+
+    val playerTeamsTasks: MutableMap<UUID, Int> = mutableMapOf()
 
     @JvmStatic
     fun initGlowTeams() {
@@ -51,6 +55,19 @@ object GlowManager {
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             removeGlowColor(entity)
             board.getEntityTeam(entity)?.addEntry(entity.uniqueId.toString())
+        }, ticks)
+    }
+
+    fun addToTeamForTicks(player: Player, glowColor: ChatColor, ticks: Long) {
+        val uuid = player.uniqueId
+        if (playerTeamsTasks.contains(uuid)) {
+            Bukkit.getScheduler().cancelTask(playerTeamsTasks[uuid]!!)
+        }
+
+        setGlowColor(player, glowColor)
+
+        playerTeamsTasks[uuid] = Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
+            removeGlowColor(player)
         }, ticks)
     }
 

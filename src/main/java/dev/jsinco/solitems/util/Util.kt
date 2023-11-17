@@ -5,6 +5,7 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
@@ -57,6 +58,17 @@ object Util {
             coloredList.add(colorcode(string))
         }
         return coloredList
+    }
+
+    fun giveItem(player: Player, item: ItemStack) {
+        for (i in 0..35) {
+            if (player.inventory.getItem(i) == null || player.inventory.getItem(i)!!.isSimilar(item)) {
+                player.inventory.addItem(item)
+                break
+            } else if (i == 35) {
+                player.world.dropItem(player.location, item)
+            }
+        }
     }
 
 
